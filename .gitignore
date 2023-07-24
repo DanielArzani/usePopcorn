@@ -42,3 +42,5 @@ src/**/output
 
 # Local Netlify folder
 .netlify
+
+src/components/**/*.md

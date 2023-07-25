@@ -35,10 +35,16 @@ function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
           {moviesArray.map((movie) => (
             <Movie key={movie.imdbID}>
               <MoviePoster poster={movie.Poster} title={movie.Title} />
-
               <div className='flex flex-col justify-center'>
                 <MovieTitle title={movie.Title} />
-                <MovieStats hasNumOfWatchedMovies={false} />
+                <MovieStats
+                  hasNumOfWatchedMovies={false}
+                  statProps={{
+                    imbdRating: movie.imdbRating,
+                    runTime: movie.runtime,
+                    userRating: movie.userRating,
+                  }}
+                />
               </div>
             </Movie>
           ))}

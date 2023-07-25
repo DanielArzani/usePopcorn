@@ -45,9 +45,21 @@ export function MovieTitle({ title }: MovieTitleProps) {
   return <h2 className='mb-2 font-bold'>{title}</h2>;
 }
 
-type MovieStatsProps = { hasNumOfWatchedMovies: boolean };
+type MovieStatsProps = {
+  hasNumOfWatchedMovies: boolean;
+  statProps: {
+    imbdRating: number | undefined;
+    runTime: number | undefined;
+    userRating: number | undefined;
+  };
+};
 
-export function MovieStats({ hasNumOfWatchedMovies }: MovieStatsProps) {
+export function MovieStats({
+  hasNumOfWatchedMovies,
+  statProps,
+}: MovieStatsProps) {
+  const { imbdRating, runTime, userRating } = statProps;
+
   return (
     <div className='flex flex-wrap justify-between gap-4'>
       {hasNumOfWatchedMovies && (
@@ -60,16 +72,16 @@ export function MovieStats({ hasNumOfWatchedMovies }: MovieStatsProps) {
       )}
       <p className='font-semibold'>
         ⭐️
-        <span> 0.00 </span>
+        <span> {imbdRating} </span>
         <span className='sr-only'>IMBD Rating</span>
       </p>
       <p className='font-semibold'>
         🌟
-        <span> 0.00 </span>
+        <span> {userRating} </span>
         <span className='sr-only'>User Rating</span>
       </p>
       <p className='font-semibold'>
-        ⏳<span> 0 </span>
+        ⏳<span> {runTime} </span>
         min
         <span className='sr-only'>Movie Runtime</span>
       </p>

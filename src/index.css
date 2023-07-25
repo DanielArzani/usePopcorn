@@ -19,6 +19,18 @@
     background-color: #212529;
     color: #dee2e6;
     padding: 2.4rem;
-    min-height: 100vh;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    overflow: hidden;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 8rem);
   }
 }

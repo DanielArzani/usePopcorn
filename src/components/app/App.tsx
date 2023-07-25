@@ -3,11 +3,13 @@ import { useState } from 'react';
 import { tempMovieData } from '../../data/movieData';
 import { tempWatchedData } from '../../data/watchedMovieData';
 import { average } from '../../utils/calculateAverage';
-import { Movie } from '../../types/Movie';
+import { Movie } from '../../types/MovieType';
 import Navbar from '../Navbar';
 import Logo from '../Logo';
 import SearchBar from '../SearchBar';
 import SearchResults from '../SearchResults';
+import SearchQuery from '../SearchQuery';
+import WatchedMovies from '../WatchedMovies';
 
 /**
  * Main component for the usePopcorn app.
@@ -38,7 +40,12 @@ export default function App() {
         </Navbar>
       </header>
 
-      <main></main>
+      <main>
+        <div className='flex max-h-[calc(100vh-8rem)] flex-1 justify-center gap-5 px-6 py-6'>
+          <SearchQuery />
+          <WatchedMovies />
+        </div>
+      </main>
     </>
   );
 }

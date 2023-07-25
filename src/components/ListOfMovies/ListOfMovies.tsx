@@ -1,12 +1,20 @@
 import React from 'react';
 import Movie from '../Movie';
 
-function ListOfMovies() {
+import { MovieType } from '../../types/MovieType';
+
+type ListOfMoviesProps = {
+  moviesArray: MovieType[];
+};
+
+function ListOfMovies({ moviesArray }: ListOfMoviesProps) {
   return (
-    <div className='flex flex-col'>
-      <Movie />
-      <Movie />
-      <Movie />
+    <div>
+      <ul className='flex flex-col'>
+        {moviesArray.map((movie) => (
+          <Movie key={movie.imdbID} movie={movie}></Movie>
+        ))}
+      </ul>
     </div>
   );
 }

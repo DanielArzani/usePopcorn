@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { tempMovieData } from '../../data/movieData';
 import { tempWatchedData } from '../../data/watchedMovieData';
 import { average } from '../../utils/calculateAverage';
-import { Movie } from '../../types/MovieType';
+import { MovieType } from '../../types/MovieType';
 import Navbar from '../Navbar';
 import Logo from '../Logo';
 import SearchBar from '../SearchBar';
@@ -18,8 +18,8 @@ import WatchedMovies from '../WatchedMovies';
 export default function App() {
   // State for the search query and movie lists
   // const [query, setQuery] = useState<string>('');
-  const [movies, setMovies] = useState<Movie[]>(tempMovieData);
-  const [watched, setWatched] = useState<Movie[]>(tempWatchedData);
+  const [movies, setMovies] = useState<MovieType[]>(tempMovieData);
+  const [watched, setWatched] = useState<MovieType[]>(tempWatchedData);
 
   // State for toggling movie lists
   const [isOpen1, setIsOpen1] = useState<boolean>(true);

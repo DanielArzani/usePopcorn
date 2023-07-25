@@ -34,3 +34,23 @@
     min-height: calc(100vh - 8rem);
   }
 }
+
+@layer components {
+  .search-query-grid {
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: 10% 1fr 20px;
+  }
+
+  .search-query-grid > div:first-child {
+    justify-self: end;
+
+    grid-row: 1/2;
+    grid-column: 3/4;
+  }
+
+  .search-query-grid > div:last-child {
+    grid-row: 2/3;
+    grid-column: 2/3;
+  }
+}

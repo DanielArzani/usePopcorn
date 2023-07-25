@@ -49,7 +49,7 @@ type MovieStatsProps = { hasNumOfWatchedMovies: boolean };
 
 export function MovieStats({ hasNumOfWatchedMovies }: MovieStatsProps) {
   return (
-    <div className='flex justify-between gap-4'>
+    <div className='flex flex-wrap justify-between gap-4'>
       {hasNumOfWatchedMovies && (
         <p className='font-semibold'>
           #️⃣

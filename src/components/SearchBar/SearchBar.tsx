@@ -1,10 +1,15 @@
+// Importing React and useState for managing local state
 import React, { useState } from 'react';
 
 /**
- * SearchBar component for searching movies.
+ * SearchBar component for usePopcorn app.
+ * This component provides a user interface for the user to search for movies.
+ * The search query is tracked in a local state variable called "query".
  * @component
+ * @returns A div containing a label and input element for search functionality.
  */
 function SearchBar() {
+  // Local state variable for the search query
   const [query, setQuery] = useState<string>('');
 
   return (

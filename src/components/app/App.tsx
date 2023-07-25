@@ -2,8 +2,11 @@ import { useState } from 'react';
 
 import { tempMovieData } from '../../data/movieData';
 import { tempWatchedData } from '../../data/watchedMovieData';
+
 import { average } from '../../utils/calculateAverage';
+
 import { MovieType } from '../../types/MovieType';
+
 import Navbar from '../Navbar';
 import Logo from '../Logo';
 import SearchBar from '../SearchBar';
@@ -16,19 +19,20 @@ import WatchedMovies from '../WatchedMovies';
  * Displays a list of movies and their details, along with statistics about watched movies.
  */
 export default function App() {
-  // State for the search query and movie lists
-  // const [query, setQuery] = useState<string>('');
-  const [movies, setMovies] = useState<MovieType[]>(tempMovieData);
-  const [watched, setWatched] = useState<MovieType[]>(tempWatchedData);
+  const [query, setQuery] = useState<string>(''); // Holds the search query
+  const [movies, setMovies] = useState<MovieType[]>(tempMovieData); // Holds the list of all movies
+  const [watched, setWatched] = useState<MovieType[]>(tempWatchedData); // Holds the list of watched movies
 
-  // State for toggling movie lists
-  const [isOpen1, setIsOpen1] = useState<boolean>(true);
-  const [isOpen2, setIsOpen2] = useState<boolean>(true);
+  // State for toggling movie lists. These boolean states control the visibility
+  // of the two movie lists
+  const [isOpen1, setIsOpen1] = useState<boolean>(true); // Controls visibility of movie list 1
+  const [isOpen2, setIsOpen2] = useState<boolean>(true); // Controls visibility of movie list 2
 
   // Calculate average IMDb rating, user rating, and runtime of watched movies
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
-  const avgUserRating = average(watched.map((movie) => movie.userRating));
-  const avgRuntime = average(watched.map((movie) => movie.runtime));
+  // By mapping through the watched movies array and passing the values to the average function
+  const avgImdbRating = average(watched.map((movie) => movie.imdbRating)); // Average IMDb rating
+  const avgUserRating = average(watched.map((movie) => movie.userRating)); // Average user rating
+  const avgRuntime = average(watched.map((movie) => movie.runtime)); // Average movie runtime
 
   return (
     <>

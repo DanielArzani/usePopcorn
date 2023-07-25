@@ -1,8 +1,10 @@
 import React from 'react';
 
 /**
- * SearchResults component displaying the number of search results.
+ * SearchResults component for the usePopcorn app.
+ * This component provides a user interface to display the number of search results.
  * @component
+ * @returns A div containing text with the number of search results.
  */
 function SearchResults() {
   return (

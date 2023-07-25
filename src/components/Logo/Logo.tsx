@@ -1,8 +1,10 @@
 import React from 'react';
 
 /**
- * Logo component displaying a popcorn emoji and the app name.
+ * Logo component for usePopcorn app.
+ * This component displays a popcorn emoji along with the name of the app (usePopcorn).
  * @component
+ * @returns A div containing the logo elements.
  */
 function Logo() {
   return (

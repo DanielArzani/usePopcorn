@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Movie, { MovieTitle } from '../Movie';
 
 import { MovieType } from '../../types/MovieType';
@@ -8,14 +9,22 @@ import { MovieTitleAndYear } from '../Movie';
 import { MovieStats } from '../Movie';
 
 type ListOfMoviesProps = {
-  moviesArray: MovieType[];
-  type: 'not-watched' | 'watched';
+  moviesArray: MovieType[]; // Array of movie data
+  type: 'not-watched' | 'watched'; // type of movies to display
 };
 
+/**
+ * ListOfMovies component displays a list of movies. Depending on the 'type' prop,
+ * it either shows not-watched or watched movies.
+ * @param {ListOfMoviesProps} { moviesArray, type }
+ * @returns
+ */
 function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
+  // If type is 'not-watched', return a list of not-watched movies
   if (type === 'not-watched') {
     return (
       <div>
+        {/* Loop over the moviesArray and render Movie component with MoviePoster and MovieTitleAndYear for each movie */}
         <ul className='flex flex-col'>
           {moviesArray.map((movie) => (
             <Movie key={movie.imdbID}>
@@ -28,9 +37,11 @@ function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
     );
   }
 
+  // If type is 'watched', return a list of watched movies
   if (type === 'watched') {
     return (
       <div>
+        {/* Loop over the moviesArray and render Movie component with MoviePoster, MovieTitle, and MovieStats for each movie */}
         <ul className='flex flex-col'>
           {moviesArray.map((movie) => (
             <Movie key={movie.imdbID}>
@@ -53,6 +64,7 @@ function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
     );
   }
 
+  // If 'type' prop is neither 'not-watched' nor 'watched', throw an error
   throw new Error('Something went wrong!');
 }
 

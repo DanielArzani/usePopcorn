@@ -8,7 +8,7 @@ function SearchQuery() {
   return (
     <div className='search-query-grid basis-1/3 overflow-scroll rounded-lg bg-[#2b3035]'>
       <ToggleButton />
-      <ListOfMovies moviesArray={tempMovieData} />
+      <ListOfMovies moviesArray={tempMovieData} type='not-watched' />
     </div>
   );
 }

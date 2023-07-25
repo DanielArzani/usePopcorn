@@ -1,5 +1,5 @@
 import React from 'react';
-import Movie from '../Movie';
+import Movie, { MovieTitle } from '../Movie';
 
 import { MovieType } from '../../types/MovieType';
 
@@ -35,7 +35,11 @@ function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
           {moviesArray.map((movie) => (
             <Movie key={movie.imdbID}>
               <MoviePoster poster={movie.Poster} title={movie.Title} />
-              <MovieStats />
+
+              <div className='flex flex-col justify-center'>
+                <MovieTitle title={movie.Title} />
+                <MovieStats hasNumOfWatchedMovies={false} />
+              </div>
             </Movie>
           ))}
         </ul>

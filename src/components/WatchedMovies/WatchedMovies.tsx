@@ -7,8 +7,10 @@ import ToggleButton from '../ToggleButton';
 
 function WatchedMovies() {
   return (
-    <div className='basis-1/3 overflow-scroll rounded-lg bg-[#2b3035]'>
-      <ToggleButton />
+    <div className='relative basis-1/3 overflow-scroll rounded-lg bg-[#2b3035]'>
+      <div className='absolute top-0 right-0'>
+        <ToggleButton />
+      </div>
       <MovieStatisticsPanel />
       <ListOfMovies type='watched' moviesArray={tempWatchedData} />
     </div>

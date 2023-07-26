@@ -1,5 +1,6 @@
 // Importing React for JSX syntax
 import React from 'react';
+import Stat from '../Stat';
 
 // Type definition for the children prop in the Movie component
 type MovieProps = { children: React.ReactNode };
@@ -75,10 +76,10 @@ export function MovieTitle({ title }: MovieTitleProps) {
 type MovieStatsProps = {
   hasNumOfWatchedMovies: boolean; // True if the number of watched movies should be displayed, false otherwise
   statProps: {
-    imbdRating: number;
-    runTime: number;
-    userRating: number;
-    numOfWatchedMovies: number;
+    imbdRating?: number;
+    runTime?: number;
+    userRating?: number;
+    numOfWatchedMovies?: number;
   };
 };
 
@@ -96,28 +97,31 @@ export function MovieStats({
   return (
     <div className='flex flex-wrap justify-between gap-4'>
       {hasNumOfWatchedMovies && (
-        <p className='font-semibold'>
+        <Stat>
           #️⃣
           <span> {numOfWatchedMovies} </span>
           <span className='sr-only'>Number of movies you've watched</span>
           movies
-        </p>
+        </Stat>
       )}
-      <p className='font-semibold'>
+
+      <Stat>
         ⭐️
         <span> {imbdRating} </span>
         <span className='sr-only'>IMBD Rating</span>
-      </p>
-      <p className='font-semibold'>
+      </Stat>
+
+      <Stat>
         🌟
         <span> {userRating} </span>
         <span className='sr-only'>User Rating</span>
-      </p>
-      <p className='font-semibold'>
+      </Stat>
+
+      <Stat>
         ⏳<span> {runTime} </span>
         min
         <span className='sr-only'>Movie Runtime</span>
-      </p>
+      </Stat>
     </div>
   );
 }

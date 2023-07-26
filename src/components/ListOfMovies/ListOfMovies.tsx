@@ -25,7 +25,7 @@ function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
     return (
       <div>
         {/* Loop over the moviesArray and render Movie component with MoviePoster and MovieTitleAndYear for each movie */}
-        <ul className='flex flex-col'>
+        <ul className='ml-4 flex flex-col'>
           {moviesArray.map((movie) => (
             <Movie key={movie.imdbID}>
               <MoviePoster poster={movie.Poster} title={movie.Title} />
@@ -42,7 +42,7 @@ function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
     return (
       <div>
         {/* Loop over the moviesArray and render Movie component with MoviePoster, MovieTitle, and MovieStats for each movie */}
-        <ul className='flex flex-col'>
+        <ul className='ml-4 flex flex-col'>
           {moviesArray.map((movie) => (
             <Movie key={movie.imdbID}>
               <MoviePoster poster={movie.Poster} title={movie.Title} />

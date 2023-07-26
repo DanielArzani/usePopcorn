@@ -36,7 +36,11 @@ function WatchedMovies({ isOpen, setIsOpen, avgStats }: WatchedMoviesProps) {
       {isOpen && <MovieStatisticsPanel avgStats={avgStats} />}
 
       {/* Component showing list of watched movies. Passing in the type of the list ('watched') and the movies data */}
-      {isOpen && <ListOfMovies type='watched' moviesArray={tempWatchedData} />}
+      {isOpen && (
+        <div className='ml-8'>
+          <ListOfMovies type='watched' moviesArray={tempWatchedData} />
+        </div>
+      )}
     </div>
   );
 }

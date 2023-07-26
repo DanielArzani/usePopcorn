@@ -19,11 +19,15 @@ type SearchQueryProps = {
  */
 function SearchQuery({ isOpen, setIsOpen }: SearchQueryProps) {
   return (
-    <div className='search-query-grid basis-1/3 overflow-scroll rounded-lg bg-[#2b3035]'>
-      <ToggleButton isOpen={isOpen} setIsOpen={setIsOpen} />
+    <div className='relative basis-1/3 overflow-scroll rounded-lg bg-[#2b3035]'>
+      <div className='absolute top-0 right-0'>
+        <ToggleButton isOpen={isOpen} setIsOpen={setIsOpen} />
+      </div>
       {/* ListOfMovies component displaying unwatched movies */}
       {isOpen && (
-        <ListOfMovies moviesArray={tempMovieData} type='not-watched' />
+        <div className='ml-8 mt-4'>
+          <ListOfMovies moviesArray={tempMovieData} type='not-watched' />
+        </div>
       )}
     </div>
   );

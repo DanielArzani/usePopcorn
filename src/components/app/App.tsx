@@ -9,14 +9,13 @@ import Navbar from '../Navbar';
 import Logo from '../Logo';
 import SearchBar from '../SearchBar';
 import SearchResults from '../SearchResults';
-import SearchQuery from '../SearchQuery';
-import WatchedMovies from '../WatchedMovies';
-import Box from '../Box';
 import ListOfMovies from '../ListOfMovies';
 import Grid from '../Grid';
 import MovieStatisticsPanel from '../MovieStatisticsPanel';
 import Stack from '../Stack';
 import MoviesBox from '../MoviesBox';
+import ChosenMovie from '../ChosenMovie';
+import StarRating from '../StarRating';
 
 /**
  * Main component for the usePopcorn app.
@@ -43,9 +42,14 @@ export default function App() {
             <ListOfMovies type='not-watched' moviesArray={movies} />
           </MoviesBox>
 
-          <MoviesBox>
+          {/* <MoviesBox>
             <MovieStatisticsPanel watched={watched} />
             <ListOfMovies type='watched' moviesArray={watched} />
+          </MoviesBox> */}
+
+          <MoviesBox>
+            <ChosenMovie />
+            <StarRating />
           </MoviesBox>
         </Grid>
       </main>

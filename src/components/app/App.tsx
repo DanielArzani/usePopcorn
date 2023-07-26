@@ -34,20 +34,31 @@ export default function App() {
   const avgUserRating = average(watched.map((movie) => movie.userRating)); // Average user rating
   const avgRuntime = average(watched.map((movie) => movie.runtime)); // Average movie runtime
 
+  const avgStats = {
+    avgImdbRating,
+    avgUserRating,
+    avgRuntime,
+    numOfWatchedMovies: watched.length,
+  };
+
   return (
     <>
       <header>
         <Navbar>
           <Logo />
-          <SearchBar />
-          <SearchResults />
+          <SearchBar query={query} setQuery={setQuery} />
+          <SearchResults movies={movies} />
         </Navbar>
       </header>
 
       <main>
         <div className='flex max-h-[calc(100vh-8rem)] flex-1 justify-center gap-5 px-6 py-6'>
-          <SearchQuery />
-          <WatchedMovies />
+          <SearchQuery isOpen={isOpen1} setIsOpen={setIsOpen1} />
+          <WatchedMovies
+            isOpen={isOpen2}
+            setIsOpen={setIsOpen2}
+            avgStats={avgStats}
+          />
         </div>
       </main>
     </>

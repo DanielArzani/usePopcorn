@@ -8,6 +8,17 @@ import MovieStatisticsPanel from '../MovieStatisticsPanel';
 
 import ToggleButton from '../ToggleButton';
 
+type WatchedMoviesProps = {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  avgStats: {
+    avgImdbRating: number;
+    avgUserRating: number;
+    avgRuntime: number;
+    numOfWatchedMovies: number;
+  };
+};
+
 /**
  * WatchedMovies component for the usePopcorn app.
  * This component provides a user interface to display the watched movies list, a toggle button to hide/show the list,
@@ -15,17 +26,17 @@ import ToggleButton from '../ToggleButton';
  * @component
  * @returns A div containing the watched movies list, toggle button, and statistics panel.
  */
-function WatchedMovies() {
+function WatchedMovies({ isOpen, setIsOpen, avgStats }: WatchedMoviesProps) {
   return (
     <div className='relative basis-1/3 overflow-scroll rounded-lg bg-[#2b3035]'>
       <div className='absolute top-0 right-0'>
-        <ToggleButton />
+        <ToggleButton isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>
 
-      <MovieStatisticsPanel />
+      {isOpen && <MovieStatisticsPanel avgStats={avgStats} />}
 
       {/* Component showing list of watched movies. Passing in the type of the list ('watched') and the movies data */}
-      <ListOfMovies type='watched' moviesArray={tempWatchedData} />
+      {isOpen && <ListOfMovies type='watched' moviesArray={tempWatchedData} />}
     </div>
   );
 }

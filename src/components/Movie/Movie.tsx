@@ -75,9 +75,10 @@ export function MovieTitle({ title }: MovieTitleProps) {
 type MovieStatsProps = {
   hasNumOfWatchedMovies: boolean; // True if the number of watched movies should be displayed, false otherwise
   statProps: {
-    imbdRating: number | undefined; // IMDB rating of the movie
-    runTime: number | undefined; // Runtime of the movie
-    userRating: number | undefined; // User rating of the movie
+    imbdRating: number;
+    runTime: number;
+    userRating: number;
+    numOfWatchedMovies: number;
   };
 };
 
@@ -90,14 +91,14 @@ export function MovieStats({
   hasNumOfWatchedMovies,
   statProps,
 }: MovieStatsProps) {
-  const { imbdRating, runTime, userRating } = statProps;
+  const { imbdRating, runTime, userRating, numOfWatchedMovies } = statProps;
 
   return (
     <div className='flex flex-wrap justify-between gap-4'>
       {hasNumOfWatchedMovies && (
         <p className='font-semibold'>
           #️⃣
-          <span> 0 </span>
+          <span> {numOfWatchedMovies} </span>
           <span className='sr-only'>Number of movies you've watched</span>
           movies
         </p>

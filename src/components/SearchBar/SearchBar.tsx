@@ -1,5 +1,9 @@
-// Importing React and useState for managing local state
 import React, { useState } from 'react';
+
+type SearchBarProps = {
+  query: string;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
+};
 
 /**
  * SearchBar component for usePopcorn app.
@@ -8,10 +12,7 @@ import React, { useState } from 'react';
  * @component
  * @returns A div containing a label and input element for search functionality.
  */
-function SearchBar() {
-  // Local state variable for the search query
-  const [query, setQuery] = useState<string>('');
-
+function SearchBar({ query, setQuery }: SearchBarProps) {
   return (
     <div className='w-[300px]'>
       <label htmlFor='search-input' className='sr-only'>

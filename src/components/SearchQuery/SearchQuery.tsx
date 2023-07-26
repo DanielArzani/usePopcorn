@@ -1,13 +1,14 @@
 import React from 'react';
 
+import { MovieType } from '../../types/MovieType';
+
 import ListOfMovies from '../ListOfMovies';
 import ToggleButton from '../ToggleButton';
-
-import { tempMovieData } from '../../data/movieData';
 
 type SearchQueryProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  movies: MovieType[];
 };
 
 /**
@@ -17,7 +18,7 @@ type SearchQueryProps = {
  * @component
  * @returns A div containing a ToggleButton component and a ListOfMovies component.
  */
-function SearchQuery({ isOpen, setIsOpen }: SearchQueryProps) {
+function SearchQuery({ isOpen, setIsOpen, movies }: SearchQueryProps) {
   return (
     <div className='relative basis-1/3 overflow-scroll rounded-lg bg-[#2b3035]'>
       <div className='absolute top-0 right-0'>
@@ -26,7 +27,7 @@ function SearchQuery({ isOpen, setIsOpen }: SearchQueryProps) {
       {/* ListOfMovies component displaying unwatched movies */}
       {isOpen && (
         <div className='ml-8 mt-4'>
-          <ListOfMovies moviesArray={tempMovieData} type='not-watched' />
+          <ListOfMovies moviesArray={movies} type='not-watched' />
         </div>
       )}
     </div>

@@ -1,13 +1,13 @@
 import React from 'react';
+
+import { MovieType } from '../../types/MovieType';
+
+import { average } from '../../utils/calculateAverage';
+
 import { MovieStats } from '../Movie/Movie';
 
 type MovieStatisticsPanelProps = {
-  avgStats: {
-    avgImdbRating: number;
-    avgUserRating: number;
-    avgRuntime: number;
-    numOfWatchedMovies: number;
-  };
+  watched: MovieType[];
 };
 
 /**
@@ -16,9 +16,13 @@ type MovieStatisticsPanelProps = {
  * @component
  * @returns A div containing the title and a MovieStats component
  */
-function MovieStatisticsPanel({ avgStats }: MovieStatisticsPanelProps) {
-  const { avgImdbRating, avgRuntime, avgUserRating, numOfWatchedMovies } =
-    avgStats;
+function MovieStatisticsPanel({ watched }: MovieStatisticsPanelProps) {
+  // Calculate average IMDb rating, user rating, and runtime of watched movies
+  // By mapping through the watched movies array and passing the values to the average function
+  const avgImdbRating = average(watched.map((movie) => movie.imdbRating)); // Average IMDb rating
+  const avgUserRating = average(watched.map((movie) => movie.userRating)); // Average user rating
+  const avgRuntime = average(watched.map((movie) => movie.runtime)); // Average movie runtime
+  const numOfWatchedMovies = watched.length;
 
   return (
     <div className='rounded-lg bg-[#343A3F] py-4 px-8'>

@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { tempMovieData } from '../../data/movieData';
 import { tempWatchedData } from '../../data/watchedMovieData';
 
-import { average } from '../../utils/calculateAverage';
-
 import { MovieType } from '../../types/MovieType';
 
 import Navbar from '../Navbar';
@@ -28,19 +26,6 @@ export default function App() {
   const [isOpen1, setIsOpen1] = useState<boolean>(true); // Controls visibility of movie list 1
   const [isOpen2, setIsOpen2] = useState<boolean>(true); // Controls visibility of movie list 2
 
-  // Calculate average IMDb rating, user rating, and runtime of watched movies
-  // By mapping through the watched movies array and passing the values to the average function
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating)); // Average IMDb rating
-  const avgUserRating = average(watched.map((movie) => movie.userRating)); // Average user rating
-  const avgRuntime = average(watched.map((movie) => movie.runtime)); // Average movie runtime
-
-  const avgStats = {
-    avgImdbRating,
-    avgUserRating,
-    avgRuntime,
-    numOfWatchedMovies: watched.length,
-  };
-
   return (
     <>
       <header>
@@ -53,11 +38,15 @@ export default function App() {
 
       <main>
         <div className='flex max-h-[calc(100vh-8rem)] flex-1 justify-center gap-5 px-6 py-6'>
-          <SearchQuery isOpen={isOpen1} setIsOpen={setIsOpen1} />
+          <SearchQuery
+            isOpen={isOpen1}
+            setIsOpen={setIsOpen1}
+            movies={movies}
+          />
           <WatchedMovies
             isOpen={isOpen2}
             setIsOpen={setIsOpen2}
-            avgStats={avgStats}
+            watched={watched}
           />
         </div>
       </main>

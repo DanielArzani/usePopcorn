@@ -1,22 +1,15 @@
 import React from 'react';
 
+import { MovieType } from '../../types/MovieType';
+
 import ListOfMovies from '../ListOfMovies';
-
-import { tempWatchedData } from '../../data/watchedMovieData';
-
 import MovieStatisticsPanel from '../MovieStatisticsPanel';
-
 import ToggleButton from '../ToggleButton';
 
 type WatchedMoviesProps = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  avgStats: {
-    avgImdbRating: number;
-    avgUserRating: number;
-    avgRuntime: number;
-    numOfWatchedMovies: number;
-  };
+  watched: MovieType[];
 };
 
 /**
@@ -26,19 +19,19 @@ type WatchedMoviesProps = {
  * @component
  * @returns A div containing the watched movies list, toggle button, and statistics panel.
  */
-function WatchedMovies({ isOpen, setIsOpen, avgStats }: WatchedMoviesProps) {
+function WatchedMovies({ isOpen, setIsOpen, watched }: WatchedMoviesProps) {
   return (
     <div className='relative basis-1/3 overflow-scroll rounded-lg bg-[#2b3035]'>
       <div className='absolute top-0 right-0'>
         <ToggleButton isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>
 
-      {isOpen && <MovieStatisticsPanel avgStats={avgStats} />}
+      {isOpen && <MovieStatisticsPanel watched={watched} />}
 
       {/* Component showing list of watched movies. Passing in the type of the list ('watched') and the movies data */}
       {isOpen && (
         <div className='ml-8'>
-          <ListOfMovies type='watched' moviesArray={tempWatchedData} />
+          <ListOfMovies type='watched' moviesArray={watched} />
         </div>
       )}
     </div>

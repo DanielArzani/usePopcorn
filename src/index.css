@@ -56,3 +56,9 @@
     background-color: #343a40;
   }
 }
+
+@layer utilities {
+  .max-w-350 {
+    max-inline-size: 350px;
+  }
+}

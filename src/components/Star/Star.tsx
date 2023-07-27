@@ -32,7 +32,7 @@ function Star({ starNumber, currentRating, setRating }: StarProps) {
         }}
         name='star-rating'
       />
-      <label htmlFor={`star-${starNumber}`} className='cursor-pointer'>
+      <label htmlFor={`star-${starNumber}`} className='cursor-pointer text-xl'>
         <span className='sr-only'>{`${starNumber} stars`}</span>
         {star}
       </label>

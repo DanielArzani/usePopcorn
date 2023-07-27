@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { range } from '../../utils/range';
 import Star from '../Star/Star';
 import Button from '../Button';
+import Center from '../Center';
 
 type StarRatingProps = {
   numOfStars: number;
@@ -17,24 +18,26 @@ function StarRating({ numOfStars }: StarRatingProps) {
   const convertedNumOfStars = Number(numOfStars + 1);
 
   return (
-    <>
-      <form>
-        {range(1, convertedNumOfStars).map((starNum) => {
-          return (
-            <Star
-              key={starNum}
-              starNumber={starNum}
-              currentRating={rating}
-              setRating={setRating}
-            />
-          );
-        })}
-      </form>
+    <div className='flex flex-col gap-4 rounded-xl bg-[#343a40] p-4'>
+      <div className='flex justify-center gap-4'>
+        <form className='flex flex-wrap gap-1'>
+          {range(1, convertedNumOfStars).map((starNum) => {
+            return (
+              <Star
+                key={starNum}
+                starNumber={starNum}
+                currentRating={rating}
+                setRating={setRating}
+              />
+            );
+          })}
+        </form>
 
-      <p>{rating}</p>
+        <p className='text-xl'>{rating}</p>
+      </div>
 
       <Button>+ Add to list</Button>
-    </>
+    </div>
   );
 }
 

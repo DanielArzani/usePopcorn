@@ -18,6 +18,7 @@ import ChosenMovie from '../ChosenMovie';
 import StarRating from '../StarRating';
 import MovieDescription from '../MovieDescription';
 import MovieCard from '../MovieCard';
+import Center from '../Center';
 
 /**
  * Main component for the usePopcorn app.
@@ -50,9 +51,16 @@ export default function App() {
           </MoviesBox> */}
 
           <MoviesBox>
-            <MovieCard />
-            <StarRating numOfStars={10} />
-            <MovieDescription />
+            <Stack space='3rem'>
+              <MovieCard />
+
+              <Center maxWidth='max-w-350'>
+                <Stack space='3rem'>
+                  <StarRating numOfStars={10} />
+                  <MovieDescription />
+                </Stack>
+              </Center>
+            </Stack>
           </MoviesBox>
         </Grid>
       </main>

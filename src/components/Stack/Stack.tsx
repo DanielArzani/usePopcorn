@@ -1,11 +1,5 @@
 import React, { CSSProperties } from 'react';
 
-/**
- * StackProps
- * children - Elements that will be stacked vertically.
- * space - Controls the gap between stacked elements. It should be a string representing a number. Default is '6'.
- *         This value is converted to rem units, with '1' equal to 0.25rem.
- */
 type StackProps = {
   children: React.ReactNode;
   space?: string;
@@ -14,11 +8,9 @@ type StackProps = {
 /**
  * The Stack component
  * This component receives children elements and stacks them vertically with a gap.
- * The size of the gap is controlled by the 'space' prop.
+ *@param space - The space between each component, in rem
  */
-const Stack: React.FC<StackProps> = ({ children, space = '6' }) => {
-  // Define the styles for the stack.
-  // The gap between elements is calculated based on the 'space' prop.
+const Stack = ({ children, space = '6' }: StackProps) => {
   const stackStyles: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',

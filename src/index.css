@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-  }
-
   .root-color-scheme {
     --color-primary: #6741d9;
     --color-primary-light: #7950f2;

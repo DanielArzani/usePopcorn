@@ -33,14 +33,16 @@ export default function App() {
   type Loading = 'success' | 'failure' | 'loading';
   const [loading, setLoading] = useState<Loading>('loading');
 
+  const tempQuery = 'shrek';
+
   useEffect(() => {
     // GET movies from OMBD API
-    const url = `http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`;
+    const url = `http://www.omdbapi.com/?apikey=${KEY}&s=${tempQuery}`;
     const moviesResultsPromise = getMovies(url);
 
     (async () => {
       const data = await moviesResultsPromise;
-      if (data != null) {
+      if (data !== undefined) {
         setLoading('success');
         setMovies(data.Search);
       } else {
@@ -63,15 +65,13 @@ export default function App() {
         <Grid>
           <MoviesBox>
             {loading === 'loading' && <LoadingState />}
-            {loading === 'success' && (
-              <ListOfMovies type='not-watched' moviesArray={movies} />
-            )}
+            {loading === 'success' && <SuccessState moviesArray={movies} />}
             {loading === 'failure' && <FailureState />}
           </MoviesBox>
 
           <MoviesBox>
             <MovieStatisticsPanel watched={watched} />
-            <ListOfMovies type='watched' moviesArray={watched} />
+            {/* <ListOfMovies type='watched' moviesArray={watched} /> */}
           </MoviesBox>
 
           {/* <MoviesBox>
@@ -98,4 +98,15 @@ function LoadingState() {
 
 function FailureState() {
   return <p>Failed to load</p>;
+}
+
+type SuccessStateProps = {
+  moviesArray: MovieType[];
+};
+function SuccessState({ moviesArray }: SuccessStateProps) {
+  if (moviesArray.length === 0) {
+    return <p>No movies found</p>;
+  }
+
+  return <ListOfMovies type='not-watched' moviesArray={moviesArray} />;
 }

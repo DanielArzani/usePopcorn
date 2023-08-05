@@ -6,7 +6,7 @@ type GridProps = {
   children: React.ReactNode;
 };
 
-const Grid: React.FC<GridProps> = ({ children }) => {
+const Grid = ({ children }: GridProps) => {
   return <div className={styles.grid_search_query}>{children}</div>;
 };
 

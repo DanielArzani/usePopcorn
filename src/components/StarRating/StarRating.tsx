@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { range } from '../../utils/range';
 import Star from '../Star/Star';
 import Button from '../Button';
-import Center from '../Center';
 
 type StarRatingProps = {
   numOfStars: number;
@@ -14,6 +13,7 @@ type StarRatingProps = {
  */
 function StarRating({ numOfStars }: StarRatingProps) {
   const [rating, setRating] = useState(1);
+  const [isClicked, setIsClicked] = useState(false);
 
   const convertedNumOfStars = Number(numOfStars + 1);
 
@@ -26,8 +26,9 @@ function StarRating({ numOfStars }: StarRatingProps) {
               <Star
                 key={starNum}
                 starNumber={starNum}
-                currentRating={rating}
+                rating={rating}
                 setRating={setRating}
+                setIsClicked={setIsClicked}
               />
             );
           })}
@@ -36,7 +37,7 @@ function StarRating({ numOfStars }: StarRatingProps) {
         <p className='text-xl'>{rating}</p>
       </div>
 
-      <Button>+ Add to list</Button>
+      {isClicked && <Button>+ Add to list</Button>}
     </div>
   );
 }

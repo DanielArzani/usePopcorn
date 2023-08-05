@@ -2,8 +2,9 @@ import React from 'react';
 
 type StarProps = {
   starNumber: number;
-  currentRating: number;
+  rating: number;
   setRating: (rating: number) => void;
+  setIsClicked: (value: boolean) => void;
 };
 
 /**
@@ -12,11 +13,11 @@ type StarProps = {
  * @param currentRating - The number in which the clicked on star represents
  * @param setRating - The setter function for changing the rating on input click
  */
-function Star({ starNumber, currentRating, setRating }: StarProps) {
+function Star({ starNumber, rating, setRating, setIsClicked }: StarProps) {
   const filledStar = '⭐';
   const emptyStar = '☆';
 
-  const isFilled = starNumber <= currentRating;
+  const isFilled = starNumber <= rating;
   const star = isFilled ? filledStar : emptyStar;
 
   return (
@@ -26,9 +27,10 @@ function Star({ starNumber, currentRating, setRating }: StarProps) {
         className='sr-only'
         id={`star-${starNumber}`}
         value={starNumber}
-        checked={currentRating === starNumber}
+        checked={rating === starNumber}
         onChange={(e) => {
           setRating(Number(e.target.value));
+          setIsClicked(true);
         }}
         name='star-rating'
       />

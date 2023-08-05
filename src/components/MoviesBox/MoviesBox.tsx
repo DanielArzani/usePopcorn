@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import Box from '../Box';
 import ToggleButton from '../ToggleButton';
-import ListOfMovies from '../ListOfMovies';
-import { MovieType } from '../../types/MovieType';
 
 type MoviesBoxProps = {
   children: React.ReactNode;

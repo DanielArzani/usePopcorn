@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { tempMovieData } from '../../data/movieData';
-import { tempWatchedData } from '../../data/watchedMovieData';
+import getMovies from '../../utils/getMovies';
 
 import { MovieType } from '../../types/MovieType';
 
@@ -11,15 +10,16 @@ import SearchBar from '../SearchBar';
 import SearchResults from '../SearchResults';
 import ListOfMovies from '../ListOfMovies';
 import Grid from '../Grid';
-import MovieStatisticsPanel from '../MovieStatisticsPanel';
 import Stack from '../Stack';
 import MoviesBox from '../MoviesBox';
-import ChosenMovie from '../ChosenMovie';
 import StarRating from '../StarRating';
 import MovieDescription from '../MovieDescription';
 import MovieCard from '../MovieCard';
 import Center from '../Center';
-import MovieInfo from '../MovieInfo';
+import MovieStatisticsPanel from '../MovieStatisticsPanel';
+
+// The API key
+const KEY = '9664ed15';
 
 /**
  * Main component for the usePopcorn app.
@@ -27,8 +27,27 @@ import MovieInfo from '../MovieInfo';
  */
 export default function App() {
   const [query, setQuery] = useState<string>(''); // Holds the search query
-  const [movies, setMovies] = useState<MovieType[]>(tempMovieData); // Holds the list of all movies
-  const [watched, setWatched] = useState<MovieType[]>(tempWatchedData); // Holds the list of watched movies
+  const [movies, setMovies] = useState<MovieType[]>([]); // Holds the list of all movies
+  const [watched, setWatched] = useState<MovieType[]>([]); // Holds the list of watched movies
+
+  type Loading = 'success' | 'failure' | 'loading';
+  const [loading, setLoading] = useState<Loading>('loading');
+
+  useEffect(() => {
+    // GET movies from OMBD API
+    const url = `http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`;
+    const moviesResultsPromise = getMovies(url);
+
+    (async () => {
+      const data = await moviesResultsPromise;
+      if (data != null) {
+        setLoading('success');
+        setMovies(data.Search);
+      } else {
+        setLoading('failure');
+      }
+    })();
+  }, []);
 
   return (
     <Stack space='2'>
@@ -43,22 +62,40 @@ export default function App() {
       <main>
         <Grid>
           <MoviesBox>
-            <ListOfMovies type='not-watched' moviesArray={movies} />
+            {loading === 'loading' && <LoadingState />}
+            {loading === 'success' && (
+              <ListOfMovies type='not-watched' moviesArray={movies} />
+            )}
+            {loading === 'failure' && <FailureState />}
+          </MoviesBox>
+
+          <MoviesBox>
+            <MovieStatisticsPanel watched={watched} />
+            <ListOfMovies type='watched' moviesArray={watched} />
           </MoviesBox>
 
           {/* <MoviesBox>
-            <MovieStatisticsPanel watched={watched} />
-            <ListOfMovies type='watched' moviesArray={watched} />
-          </MoviesBox> */}
-
-          <MoviesBox>
             <Stack space='3rem'>
               <MovieCard />
-              <MovieInfo />
+
+              <Center maxWidth='max-w-350'>
+                <Stack space='3rem'>
+                  <StarRating numOfStars={10} />
+                  <MovieDescription />
+                </Stack>
+              </Center>
             </Stack>
-          </MoviesBox>
+          </MoviesBox> */}
         </Grid>
       </main>
     </Stack>
   );
+}
+
+function LoadingState() {
+  return <p>Loading...</p>;
+}
+
+function FailureState() {
+  return <p>Failed to load</p>;
 }

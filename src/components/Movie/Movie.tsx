@@ -76,18 +76,18 @@ export function MovieStats({
 
       <Stat>
         ⭐️
-        <span> {imbdRating} </span>
+        <span> {imbdRating ? imbdRating : 0} </span>
         <span className='sr-only'>IMBD Rating</span>
       </Stat>
 
       <Stat>
         🌟
-        <span> {userRating} </span>
+        <span> {userRating ? userRating : 0} </span>
         <span className='sr-only'>User Rating</span>
       </Stat>
 
       <Stat>
-        ⏳<span> {runTime} </span>
+        ⏳<span> {runTime ? runTime : 0} </span>
         min
         <span className='sr-only'>Movie Runtime</span>
       </Stat>

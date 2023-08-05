@@ -33,11 +33,9 @@ export default function App() {
   type Loading = 'success' | 'failure' | 'loading';
   const [loading, setLoading] = useState<Loading>('loading');
 
-  const tempQuery = 'shrek';
-
   useEffect(() => {
     // GET movies from OMBD API
-    const url = `http://www.omdbapi.com/?apikey=${KEY}&s=${tempQuery}`;
+    const url = `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`;
     const moviesResultsPromise = getMovies(url);
 
     (async () => {
@@ -49,7 +47,7 @@ export default function App() {
         setLoading('failure');
       }
     })();
-  }, []);
+  }, [query]);
 
   return (
     <Stack space='2'>

@@ -34,6 +34,8 @@ export default function App() {
   const [loading, setLoading] = useState<Loading>('nothing');
 
   useEffect(() => {
+    if (query === '') setLoading('nothing');
+
     if (query !== '') {
       // Only perform the API call when query is not an empty string
       setLoading('loading'); // Set loading to true at the start of an API call

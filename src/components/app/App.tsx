@@ -30,23 +30,28 @@ export default function App() {
   const [movies, setMovies] = useState<MovieType[]>([]); // Holds the list of all movies
   const [watched, setWatched] = useState<MovieType[]>([]); // Holds the list of watched movies
 
-  type Loading = 'success' | 'failure' | 'loading';
-  const [loading, setLoading] = useState<Loading>('loading');
+  type Loading = 'success' | 'failure' | 'loading' | 'nothing';
+  const [loading, setLoading] = useState<Loading>('nothing');
 
   useEffect(() => {
-    // GET movies from OMBD API
-    const url = `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`;
-    const moviesResultsPromise = getMovies(url);
+    if (query !== '') {
+      // Only perform the API call when query is not an empty string
+      setLoading('loading'); // Set loading to true at the start of an API call
 
-    (async () => {
-      const data = await moviesResultsPromise;
-      if (data !== undefined) {
-        setLoading('success');
-        setMovies(data.Search);
-      } else {
-        setLoading('failure');
-      }
-    })();
+      // GET movies from OMBD API
+      const url = `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`;
+      const moviesResultsPromise = getMovies(url);
+
+      (async () => {
+        const data = await moviesResultsPromise;
+        if (data !== undefined) {
+          setLoading('success');
+          setMovies(data.Search);
+        } else {
+          setLoading('failure');
+        }
+      })();
+    }
   }, [query]);
 
   return (
@@ -62,6 +67,8 @@ export default function App() {
       <main>
         <Grid>
           <MoviesBox>
+            {/* if the user hasn't begin to search for anything, simply return nothing */}
+            {loading === 'nothing' && null}
             {loading === 'loading' && <LoadingState />}
             {loading === 'success' && <SuccessState moviesArray={movies} />}
             {loading === 'failure' && <FailureState />}

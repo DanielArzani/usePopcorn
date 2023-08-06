@@ -4,10 +4,15 @@ import Sidebar from '../Sidebar';
 import Stack from '../Stack';
 
 type MovieCardProps = {
-  imdbIDRating: number;
+  Genre: string;
+  Plot: string;
+  Poster: string;
+  Released: string;
+  Runtime: string;
   Title: string;
   Year: string;
-  Poster: string;
+  imdbID: string;
+  imdbRating: string;
   onSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
 };
 
@@ -15,10 +20,15 @@ type MovieCardProps = {
  * Extra information about a chosen movie along with a larger sized poster and a back button in order to stop showing the extra details
  */
 function MovieCard({
-  imdbIDRating,
+  imdbRating,
   Title,
   Year,
   Poster,
+  Released,
+  Runtime,
+  imdbID,
+  Plot,
+  Genre,
   onSelectedMovieId,
 }: MovieCardProps) {
   return (
@@ -28,9 +38,11 @@ function MovieCard({
           <div className=' flex h-full items-center'>
             <Stack space='1rem'>
               <h3 className='text-2xl font-bold'>{Title}</h3>
-              <p>{Year} · RUNTIME</p>
-              <p>GENRE</p>
-              <p>⭐️ {imdbIDRating}</p>
+              <p>
+                {Year} · {Runtime}
+              </p>
+              <p>{Genre}</p>
+              <p>⭐️ {imdbRating}</p>
             </Stack>
           </div>
         }

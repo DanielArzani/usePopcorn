@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Stack from '../Stack';
 import StarRating from '../StarRating';
@@ -7,6 +7,32 @@ import MovieCard from '../MovieCard';
 import Center from '../Center';
 
 import { MovieType } from '../../types/MovieType';
+
+import { KEY } from '../../apiKey/key';
+
+type MovieDetails = {
+  Genre: string;
+  Plot: string;
+  Poster: string;
+  Released: string;
+  Runtime: string;
+  Title: string;
+  Year: string;
+  imdbID: string;
+  imdbRating: string;
+};
+
+const defaultMovieDetails = {
+  Genre: '',
+  Plot: '',
+  Poster: '',
+  Released: '',
+  Runtime: '',
+  Title: '',
+  Year: '',
+  imdbID: '',
+  imdbRating: '',
+};
 
 type MovieDetailsProps = {
   movies: MovieType[];
@@ -25,29 +51,49 @@ function MovieDetails({
   selectedMovieId,
   onSelectedMovieId,
 }: MovieDetailsProps) {
+  const [movieDetailsData, setMovieDetailsData] =
+    useState<MovieDetails>(defaultMovieDetails);
+
   const filterSelectedMovie = movies.filter((movie) => {
     return movie.imdbID === selectedMovieId;
   });
 
-  const getMovie = filterSelectedMovie[0];
+  useEffect(() => {
+    // GET movie from OMBD API
+    const url = `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedMovieId}`;
+
+    (async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      setMovieDetailsData(data);
+    })();
+  }, [selectedMovieId]);
 
   return (
     <>
       <Stack space='3rem'>
         <MovieCard
-          imdbIDRating={
-            getMovie.imdbRating !== undefined ? getMovie.imdbRating : 0
+          imdbRating={
+            movieDetailsData.imdbRating !== undefined
+              ? movieDetailsData.imdbRating
+              : '0'
           }
-          Title={getMovie.Title}
-          Year={getMovie.Year}
-          Poster={getMovie.Poster}
+          Title={movieDetailsData.Title}
+          Year={movieDetailsData.Year}
+          Poster={movieDetailsData.Poster}
+          Genre={movieDetailsData.Genre}
+          Plot={movieDetailsData.Plot}
+          Released={movieDetailsData.Released}
+          Runtime={movieDetailsData.Runtime}
+          imdbID={movieDetailsData.imdbID}
           onSelectedMovieId={onSelectedMovieId}
         />
 
         <Center maxWidth='max-w-350'>
           <Stack space='3rem'>
             <StarRating numOfStars={10} />
-            <MovieDescription />
+            <MovieDescription Plot={movieDetailsData.Plot} />
           </Stack>
         </Center>
       </Stack>

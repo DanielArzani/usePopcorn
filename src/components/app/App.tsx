@@ -15,8 +15,7 @@ import MoviesBox from '../MoviesBox';
 import MovieStatisticsPanel from '../MovieStatisticsPanel';
 import MovieDetails from '../MovieDetails';
 
-// The API key
-const KEY = '9664ed15';
+import { KEY } from '../../apiKey/key';
 
 /**
  * Main component for the usePopcorn app.

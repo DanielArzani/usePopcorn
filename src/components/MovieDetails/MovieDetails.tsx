@@ -29,6 +29,8 @@ type MovieDetailsProps = {
   movies: MovieType[];
   selectedMovieId: string;
   onSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
+  setWatched: React.Dispatch<React.SetStateAction<MovieType[]>>;
+  watched: MovieType[];
 };
 
 /**
@@ -41,6 +43,8 @@ function MovieDetails({
   movies,
   selectedMovieId,
   onSelectedMovieId,
+  watched,
+  setWatched,
 }: MovieDetailsProps) {
   const [movieDetailsData, setMovieDetailsData] =
     useState<MovieDetailsType>(defaultMovieDetails);
@@ -72,7 +76,7 @@ function MovieDetails({
       {isLoading === 'failure' && <FailureState />}
       {isLoading === 'success' && (
         <Stack space='3rem'>
-          {/* TODO: Change this to an object instead of passing in a bunch if props */}
+          {/* TODO: Pass in movieDetailsData and de-structure fields instead of passing in so many props */}
           <MovieCard
             imdbRating={
               movieDetailsData.imdbRating !== undefined
@@ -92,7 +96,14 @@ function MovieDetails({
 
           <Center maxWidth='max-w-350'>
             <Stack space='3rem'>
-              <StarRating numOfStars={10} />
+              <StarRating
+                numOfStars={10}
+                watched={watched}
+                setWatched={setWatched}
+                movieDetailsData={movieDetailsData}
+                movies={movies}
+                selectedMovieId={selectedMovieId}
+              />
               <MovieDescription Plot={movieDetailsData.Plot} />
             </Stack>
           </Center>

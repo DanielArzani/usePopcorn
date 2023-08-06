@@ -17,6 +17,7 @@ import MovieDetails from '../MovieDetails';
 import { FailureState, LoadingState, SuccessState } from '../LoadingStates';
 
 import { KEY } from '../../apiKey/key';
+import ListOfMovies from '../ListOfMovies';
 
 /**
  * Main component for the usePopcorn app.
@@ -86,7 +87,16 @@ export default function App() {
 
           <MoviesBox>
             {selectedMovieId === '' && (
-              <MovieStatisticsPanel watched={watched} />
+              <>
+                <MovieStatisticsPanel watched={watched} />
+
+                <ListOfMovies
+                  type='watched'
+                  moviesArray={watched}
+                  selectedMovieId={selectedMovieId}
+                  onSelectedMovie={setSelectedMovieId}
+                />
+              </>
             )}
 
             {selectedMovieId !== '' && (
@@ -94,15 +104,10 @@ export default function App() {
                 movies={movies}
                 selectedMovieId={selectedMovieId}
                 onSelectedMovieId={setSelectedMovieId}
+                watched={watched}
+                setWatched={setWatched}
               />
             )}
-
-            {/* <ListOfMovies
-              type='watched'
-              moviesArray={watched}
-              selectedMovieId={selectedMovieId}
-              onSelectedMovie={setSelectedMovieId}
-            /> */}
           </MoviesBox>
         </Grid>
       </main>

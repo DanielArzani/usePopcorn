@@ -19,6 +19,7 @@ type MovieDetailsProps = {
   setMovieDetailsData: React.Dispatch<React.SetStateAction<MovieDetailsType>>;
   watched: MovieDetailsType[];
   setWatched: React.Dispatch<React.SetStateAction<MovieDetailsType[]>>;
+  setMovieRating: React.Dispatch<React.SetStateAction<number>>;
 };
 
 /**
@@ -29,6 +30,7 @@ type MovieDetailsProps = {
  * @param onSelectedMovieId The setter function for storing the id of the selected movie
  * @param watched The list of watched movies, it's here only to be passed down as a prop
  * @param setWatched The setter function for the list of watched movies, it's here only to be passed down as a prop
+ * @param setMovieRating The setter function for the rating prop, it is here to be passed into the star rating component in order to sync with its local rating state
  */
 function MovieDetails({
   selectedMovieId,
@@ -37,6 +39,7 @@ function MovieDetails({
   setMovieDetailsData,
   watched,
   setWatched,
+  setMovieRating,
 }: MovieDetailsProps) {
   const [isLoading, setIsLoading] = useState<Loading>('nothing');
 
@@ -78,6 +81,7 @@ function MovieDetails({
                 watched={watched}
                 setWatched={setWatched}
                 movieDetailsData={movieDetailsData}
+                setMovieRating={setMovieRating}
               />
 
               <MovieDescription Plot={movieDetailsData.Plot} />

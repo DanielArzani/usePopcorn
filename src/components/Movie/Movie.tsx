@@ -16,7 +16,11 @@ function Movie({
   movieId,
 }: MovieProps) {
   const handleSelectedMovie = () => {
-    onSelectedMovie(movieId);
+    if (selectedMovieId === movieId) {
+      onSelectedMovie('');
+    } else {
+      onSelectedMovie(movieId);
+    }
   };
 
   return (

@@ -11,6 +11,8 @@ import { MovieStats } from '../Movie';
 type ListOfMoviesProps = {
   moviesArray: MovieType[]; // Array of movie data
   type: 'not-watched' | 'watched'; // type of movies to display
+  selectedMovieId: string;
+  onSelectedMovie: React.Dispatch<React.SetStateAction<string>>;
 };
 
 /**
@@ -19,7 +21,12 @@ type ListOfMoviesProps = {
  * @param {ListOfMoviesProps} { moviesArray, type }
  * @returns
  */
-function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
+function ListOfMovies({
+  moviesArray,
+  type,
+  selectedMovieId,
+  onSelectedMovie,
+}: ListOfMoviesProps) {
   // If type is 'not-watched', return a list of not-watched movies
   if (type === 'not-watched') {
     return (
@@ -27,7 +34,12 @@ function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
         {/* Loop over the moviesArray and render Movie component with MoviePoster and MovieTitleAndYear for each movie */}
         <ul className='ml-4 flex flex-col'>
           {moviesArray.map((movie) => (
-            <Movie key={movie.imdbID}>
+            <Movie
+              key={movie.imdbID}
+              selectedMovieId={selectedMovieId}
+              onSelectedMovie={onSelectedMovie}
+              movieId={movie.imdbID}
+            >
               <MoviePoster poster={movie.Poster} title={movie.Title} />
               <MovieTitleAndYear title={movie.Title} year={movie.Year} />
             </Movie>
@@ -44,7 +56,12 @@ function ListOfMovies({ moviesArray, type }: ListOfMoviesProps) {
         {/* Loop over the moviesArray and render Movie component with MoviePoster, MovieTitle, and MovieStats for each movie */}
         <ul className='ml-4 flex flex-col'>
           {moviesArray.map((movie) => (
-            <Movie key={movie.imdbID}>
+            <Movie
+              key={movie.imdbID}
+              selectedMovieId={selectedMovieId}
+              onSelectedMovie={onSelectedMovie}
+              movieId={movie.imdbID}
+            >
               <MoviePoster poster={movie.Poster} title={movie.Title} />
               <div className='flex flex-col justify-center'>
                 <MovieTitle title={movie.Title} />

@@ -3,14 +3,33 @@ import React from 'react';
 import Stat from '../Stat';
 
 // Type definition for the children prop in the Movie component
-type MovieProps = { children: React.ReactNode };
-function Movie({ children }: MovieProps) {
+type MovieProps = {
+  children: React.ReactNode;
+  selectedMovieId: string;
+  onSelectedMovie: React.Dispatch<React.SetStateAction<string>>;
+  movieId: string;
+};
+function Movie({
+  children,
+  selectedMovieId,
+  onSelectedMovie,
+  movieId,
+}: MovieProps) {
+  const handleSelectedMovie = () => {
+    onSelectedMovie(movieId);
+  };
+
   return (
-    <li className='flex gap-4 border-b border-[#343a40] py-4'>{children}</li>
+    <li
+      onClick={handleSelectedMovie}
+      className='flex cursor-pointer gap-4 border-b border-[#343a40] py-4 hover:bg-[#343a40]'
+    >
+      {children}
+    </li>
   );
 }
 
-// Type definition for the props in the MoviePoster subcomponent
+// Type definition for the props in the MoviePoster sub-component
 type MoviePosterProps = {
   poster: string; // URL to the poster image
   title: string; // Title of the movie
@@ -23,7 +42,7 @@ export function MoviePoster({ poster, title }: MoviePosterProps) {
   );
 }
 
-// Type definition for the props in the MovieTitleAndYear subcomponent
+// Type definition for the props in the MovieTitleAndYear sub component
 type MovieTitleAndYearProps = {
   title: string; // Title of the movie
   year: string; // Year of release of the movie

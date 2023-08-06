@@ -1,43 +1,65 @@
 import React from 'react';
 
-import { MovieType } from '../../types/MovieType';
+import { MovieDetailsType } from '../../types/MovieDetailsType';
 
 import { average } from '../../utils/calculateAverage';
 
-import { MovieStats } from '../Movie/Movie';
+import MovieStats from '../MovieStats';
+import Stat from '../Stat';
 
 type MovieStatisticsPanelProps = {
-  watched: MovieType[];
+  watched: MovieDetailsType[];
 };
 
 /**
- * MovieStatisticsPanel component for usePopcorn app.
  * This component displays a panel that contains the statistics of the movies watched by the user.
- * @component
- * @returns A div containing the title and a MovieStats component
  */
 function MovieStatisticsPanel({ watched }: MovieStatisticsPanelProps) {
   // Calculate average IMDb rating, user rating, and runtime of watched movies
   // By mapping through the watched movies array and passing the values to the average function
-  const avgImdbRating = average(watched.map((movie) => movie.imdbRating)); // Average IMDb rating
-  const avgUserRating = average(watched.map((movie) => movie.userRating)); // Average user rating
-  const avgRuntime = average(watched.map((movie) => movie.runtime)); // Average movie runtime
+  const avgImdbRating = average(
+    watched.map((movie) => parseFloat(movie.imdbRating))
+  );
+  // const avgUserRating = average(watched.map((movie) => parseFloat(movie.userRating)));
+  const avgRuntime = average(watched.map((movie) => parseFloat(movie.Runtime)));
+
   const numOfWatchedMovies = watched.length;
+
+  // These values should always be a number, never NaN thus if they end up falsy then they will be converted to 0
+  const statProps = {
+    imdbRating: avgImdbRating || 0,
+    runTime: avgRuntime || 0,
+    userRating: 0,
+  };
 
   return (
     <div className='rounded-lg bg-[#343A3F] py-4 px-8'>
       <h3 className='text-lg font-bold'>Movies You Watched</h3>
 
-      <MovieStats
-        statProps={{
-          imbdRating: avgImdbRating,
-          runTime: avgRuntime,
-          userRating: avgUserRating,
-          numOfWatchedMovies: numOfWatchedMovies,
-        }}
-        hasNumOfWatchedMovies={true} // Displaying the number of watched movies
-      />
+      <div className='flex flex-wrap gap-6'>
+        <PanelStat numOfWatchedMovies={numOfWatchedMovies} />
+        <MovieStats statProps={statProps} />
+      </div>
     </div>
+  );
+}
+
+type PanelStatProps = {
+  numOfWatchedMovies: number;
+};
+
+/**
+ * The statistics for the MoveStatisticsPanel component
+ * @param numOfWatchedMovies The total number of movies that have been marked as watched
+ */
+function PanelStat({ numOfWatchedMovies }: PanelStatProps) {
+  return (
+    <Stat>
+      #️⃣
+      <span> {numOfWatchedMovies} </span>
+      <span className='sr-only'>Number of movies you've watched</span>
+      movies
+    </Stat>
   );
 }
 

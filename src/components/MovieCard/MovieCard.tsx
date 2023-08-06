@@ -3,34 +3,31 @@ import Box from '../Box';
 import Sidebar from '../Sidebar';
 import Stack from '../Stack';
 
+import { MovieDetailsType } from '../../types/MovieDetailsType';
+
 type MovieCardProps = {
-  Genre: string;
-  Plot: string;
-  Poster: string;
-  Released: string;
-  Runtime: string;
-  Title: string;
-  Year: string;
-  imdbID: string;
-  imdbRating: string;
+  cardProps: MovieDetailsType;
   onSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 /**
  * Extra information about a chosen movie along with a larger sized poster and a back button in order to stop showing the extra details
+ * @param cardProps The information of the movie to be shown
+ * @param onSelectedMovieId The setter function for the selectedMovieId, used to reset it back to an empty string in order to stop showing the extra details
  */
-function MovieCard({
-  imdbRating,
-  Title,
-  Year,
-  Poster,
-  Released,
-  Runtime,
-  imdbID,
-  Plot,
-  Genre,
-  onSelectedMovieId,
-}: MovieCardProps) {
+function MovieCard({ cardProps, onSelectedMovieId }: MovieCardProps) {
+  const {
+    imdbRating,
+    Title,
+    Year,
+    Poster,
+    Released,
+    Runtime,
+    imdbID,
+    Plot,
+    Genre,
+  } = cardProps;
+
   return (
     <Box boxStyles='movie-card-box'>
       <Sidebar
@@ -42,7 +39,7 @@ function MovieCard({
                 {Year} · {Runtime}
               </p>
               <p>{Genre}</p>
-              <p>⭐️ {imdbRating}</p>
+              <p>⭐️ {imdbRating} IMBD Rating</p>
             </Stack>
           </div>
         }

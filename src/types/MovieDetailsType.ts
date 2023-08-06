@@ -8,4 +8,5 @@ export type MovieDetailsType = {
   Year: string;
   imdbID: string;
   imdbRating: string;
+  userRating?: string;
 };

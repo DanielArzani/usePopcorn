@@ -14,6 +14,7 @@ type MovieCardProps = {
  * Extra information about a chosen movie along with a larger sized poster and a back button in order to stop showing the extra details
  * @param cardProps The information of the movie to be shown
  * @param onSelectedMovieId The setter function for the selectedMovieId, used to reset it back to an empty string in order to stop showing the extra details
+
  */
 function MovieCard({ cardProps, onSelectedMovieId }: MovieCardProps) {
   const {

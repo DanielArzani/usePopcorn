@@ -109,7 +109,11 @@ function HomePage() {
               <>
                 <MovieStatisticsPanel watched={watched} />
 
-                <ListOfWatchedMovies movies={watched} />
+                <ListOfWatchedMovies
+                  movies={watched}
+                  selectedMovieId={selectedMovieId}
+                  setSelectedMovieId={setSelectedMovieId}
+                />
               </>
             )}
 
@@ -119,6 +123,8 @@ function HomePage() {
                 setSelectedMovieId={setSelectedMovieId}
                 movieDetailsData={movieDetailsData}
                 setMovieDetailsData={setMovieDetailsData}
+                watched={watched}
+                setWatched={setWatched}
               />
             )}
           </MoviesBox>

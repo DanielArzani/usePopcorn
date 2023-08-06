@@ -7,20 +7,11 @@ import MovieCard from '../MovieCard';
 import Center from '../Center';
 
 import { MovieType } from '../../types/MovieType';
+import { MovieDetailsType } from '../../types/MovieDetailsType';
+import { Loading } from '../../types/LoadingTypes';
 
 import { KEY } from '../../apiKey/key';
-
-type MovieDetails = {
-  Genre: string;
-  Plot: string;
-  Poster: string;
-  Released: string;
-  Runtime: string;
-  Title: string;
-  Year: string;
-  imdbID: string;
-  imdbRating: string;
-};
+import { FailureState, LoadingState } from '../LoadingStates';
 
 const defaultMovieDetails = {
   Genre: '',
@@ -52,51 +43,61 @@ function MovieDetails({
   onSelectedMovieId,
 }: MovieDetailsProps) {
   const [movieDetailsData, setMovieDetailsData] =
-    useState<MovieDetails>(defaultMovieDetails);
-
-  const filterSelectedMovie = movies.filter((movie) => {
-    return movie.imdbID === selectedMovieId;
-  });
+    useState<MovieDetailsType>(defaultMovieDetails);
+  const [isLoading, setIsLoading] = useState<Loading>('nothing');
 
   useEffect(() => {
     // GET movie from OMBD API
     const url = `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedMovieId}`;
 
     (async () => {
-      const res = await fetch(url);
-      const data = await res.json();
+      setIsLoading('loading');
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
 
-      setMovieDetailsData(data);
+        setMovieDetailsData(data);
+        setIsLoading('success');
+      } catch (error) {
+        console.error(error);
+        setIsLoading('failure');
+      }
     })();
   }, [selectedMovieId]);
 
   return (
     <>
-      <Stack space='3rem'>
-        <MovieCard
-          imdbRating={
-            movieDetailsData.imdbRating !== undefined
-              ? movieDetailsData.imdbRating
-              : '0'
-          }
-          Title={movieDetailsData.Title}
-          Year={movieDetailsData.Year}
-          Poster={movieDetailsData.Poster}
-          Genre={movieDetailsData.Genre}
-          Plot={movieDetailsData.Plot}
-          Released={movieDetailsData.Released}
-          Runtime={movieDetailsData.Runtime}
-          imdbID={movieDetailsData.imdbID}
-          onSelectedMovieId={onSelectedMovieId}
-        />
+      {isLoading === 'nothing' && null}
+      {isLoading === 'loading' && <LoadingState />}
+      {isLoading === 'failure' && <FailureState />}
+      {isLoading === 'success' && (
+        <Stack space='3rem'>
+          {/* TODO: Change this to an object instead of passing in a bunch if props */}
+          <MovieCard
+            imdbRating={
+              movieDetailsData.imdbRating !== undefined
+                ? movieDetailsData.imdbRating
+                : '0'
+            }
+            Title={movieDetailsData.Title}
+            Year={movieDetailsData.Year}
+            Poster={movieDetailsData.Poster}
+            Genre={movieDetailsData.Genre}
+            Plot={movieDetailsData.Plot}
+            Released={movieDetailsData.Released}
+            Runtime={movieDetailsData.Runtime}
+            imdbID={movieDetailsData.imdbID}
+            onSelectedMovieId={onSelectedMovieId}
+          />
 
-        <Center maxWidth='max-w-350'>
-          <Stack space='3rem'>
-            <StarRating numOfStars={10} />
-            <MovieDescription Plot={movieDetailsData.Plot} />
-          </Stack>
-        </Center>
-      </Stack>
+          <Center maxWidth='max-w-350'>
+            <Stack space='3rem'>
+              <StarRating numOfStars={10} />
+              <MovieDescription Plot={movieDetailsData.Plot} />
+            </Stack>
+          </Center>
+        </Stack>
+      )}
     </>
   );
 }

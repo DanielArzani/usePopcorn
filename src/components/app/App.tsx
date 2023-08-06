@@ -3,17 +3,18 @@ import { useEffect, useState } from 'react';
 import getMovies from '../../utils/getMovies';
 
 import { MovieType } from '../../types/MovieType';
+import { Loading } from '../../types/LoadingTypes';
 
 import Navbar from '../Navbar';
 import Logo from '../Logo';
 import SearchBar from '../SearchBar';
 import SearchResults from '../SearchResults';
-import ListOfMovies from '../ListOfMovies';
 import Grid from '../Grid';
 import Stack from '../Stack';
 import MoviesBox from '../MoviesBox';
 import MovieStatisticsPanel from '../MovieStatisticsPanel';
 import MovieDetails from '../MovieDetails';
+import { FailureState, LoadingState, SuccessState } from '../LoadingStates';
 
 import { KEY } from '../../apiKey/key';
 
@@ -26,7 +27,6 @@ export default function App() {
   const [movies, setMovies] = useState<MovieType[]>([]); // Holds the list of all movies
   const [watched, setWatched] = useState<MovieType[]>([]); // Holds the list of watched movies
 
-  type Loading = 'success' | 'failure' | 'loading' | 'nothing';
   const [loading, setLoading] = useState<Loading>('nothing');
 
   const [selectedMovieId, setSelectedMovieId] = useState('');
@@ -107,37 +107,5 @@ export default function App() {
         </Grid>
       </main>
     </Stack>
-  );
-}
-
-function LoadingState() {
-  return <p>Loading...</p>;
-}
-
-function FailureState() {
-  return <p>Failed to load</p>;
-}
-
-type SuccessStateProps = {
-  moviesArray: MovieType[];
-  selectedMovieId: string;
-  onSelectedMovie: React.Dispatch<React.SetStateAction<string>>;
-};
-function SuccessState({
-  moviesArray,
-  selectedMovieId,
-  onSelectedMovie,
-}: SuccessStateProps) {
-  if (moviesArray.length === 0) {
-    return <p>No movies found</p>;
-  }
-
-  return (
-    <ListOfMovies
-      type='not-watched'
-      moviesArray={moviesArray}
-      selectedMovieId={selectedMovieId}
-      onSelectedMovie={onSelectedMovie}
-    />
   );
 }

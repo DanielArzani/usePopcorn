@@ -12,6 +12,7 @@ type StarRatingProps = {
   movieDetailsData: MovieDetailsType;
   setMovieRating: React.Dispatch<React.SetStateAction<number>>;
   setMovieDetailsData: React.Dispatch<React.SetStateAction<MovieDetailsType>>;
+  setSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 /**
@@ -22,6 +23,7 @@ type StarRatingProps = {
  * @param movieDetailsData The movie which should be added to the watched list on button click
  * @param setMovieDetailsData The setter function for the movieDetailsData. Here in order to update the data to allow a userRating field
  * @param setMovieRating The setter function for the rating prop, it is here to be passed into the star component in order to sync with its local rating state
+ * @param setSelectedMovieId The setter function for the selectedMovieId, here in order to reset the selectedMovieId on button click in order to unmount the movie details
  */
 function StarRating({
   numOfStars,
@@ -30,21 +32,35 @@ function StarRating({
   movieDetailsData,
   setMovieDetailsData,
   setMovieRating,
+  setSelectedMovieId,
 }: StarRatingProps) {
   const [rating, setRating] = useState(movieDetailsData.userRating || 1);
   const [isClicked, setIsClicked] = useState(false);
 
   const convertedNumOfStars = Number(numOfStars + 1);
 
+  /**
+   * Callback function will add a movie to the list of watched movies, will check to make sure that no duplicate movies can be added and will allow for replacing the old rating with a new one as well as unmounting the movie details after wards.
+   */
   const handleClick = () => {
     const updatedMovieDetails = { ...movieDetailsData, userRating: rating };
     setMovieDetailsData(updatedMovieDetails);
 
-    // Check if the movie is already in the watched array in order to disallow duplicates of the same movie being added to the list of watched movies
-    if (!watched.some((movie) => movie.imdbID === movieDetailsData.imdbID)) {
+    // Check if the movie is already in the watched array
+    const movieIndex = watched.findIndex(
+      (movie) => movie.imdbID === movieDetailsData.imdbID
+    );
+    if (movieIndex !== -1) {
+      // Update the existing movie with the new rating
+      const updatedWatchedMovies = [...watched];
+      updatedWatchedMovies[movieIndex] = updatedMovieDetails;
+      setWatched(updatedWatchedMovies);
+    } else {
+      // Add the movie to the watched array
       const newArray = [...watched, updatedMovieDetails];
       setWatched(newArray);
     }
+    setSelectedMovieId('');
   };
 
   return (

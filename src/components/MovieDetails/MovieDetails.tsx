@@ -83,6 +83,7 @@ function MovieDetails({
                 movieDetailsData={movieDetailsData}
                 setMovieRating={setMovieRating}
                 setMovieDetailsData={setMovieDetailsData}
+                setSelectedMovieId={setSelectedMovieId}
               />
 
               <MovieDescription Plot={movieDetailsData.Plot} />

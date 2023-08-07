@@ -10,7 +10,6 @@ type StarRatingProps = {
   watched: MovieDetailsType[];
   setWatched: React.Dispatch<React.SetStateAction<MovieDetailsType[]>>;
   movieDetailsData: MovieDetailsType;
-  setMovieRating: React.Dispatch<React.SetStateAction<number>>;
   setMovieDetailsData: React.Dispatch<React.SetStateAction<MovieDetailsType>>;
   setSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -22,7 +21,6 @@ type StarRatingProps = {
  * @param setWatched The setter function for the list of watched movies, it's here only to be passed down as a prop
  * @param movieDetailsData The movie which should be added to the watched list on button click
  * @param setMovieDetailsData The setter function for the movieDetailsData. Here in order to update the data to allow a userRating field
- * @param setMovieRating The setter function for the rating prop, it is here to be passed into the star component in order to sync with its local rating state
  * @param setSelectedMovieId The setter function for the selectedMovieId, here in order to reset the selectedMovieId on button click in order to unmount the movie details
  */
 function StarRating({
@@ -31,7 +29,6 @@ function StarRating({
   setWatched,
   movieDetailsData,
   setMovieDetailsData,
-  setMovieRating,
   setSelectedMovieId,
 }: StarRatingProps) {
   const [rating, setRating] = useState(movieDetailsData.userRating || 0);
@@ -75,7 +72,6 @@ function StarRating({
                 rating={rating}
                 setRating={setRating}
                 setIsClicked={setIsClicked}
-                setMovieRating={setMovieRating}
               />
             );
           })}

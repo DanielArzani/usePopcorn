@@ -48,8 +48,6 @@ function HomePage() {
   const [movieDetailsData, setMovieDetailsData] =
     useState<MovieDetailsType>(defaultMovieDetails);
 
-  const [movieRating, setMovieRating] = useState(1); // The userRating, this will sync with the local state within the starRating component
-
   // Fetching the movie data on search query and setting loading states
   useEffect(() => {
     if (query === '') setLoading('nothing');
@@ -109,16 +107,12 @@ function HomePage() {
           <MoviesBox>
             {selectedMovieId === '' && (
               <>
-                <MovieStatisticsPanel
-                  watched={watched}
-                  movieRating={movieRating}
-                />
+                <MovieStatisticsPanel watched={watched} />
 
                 <ListOfWatchedMovies
                   movies={watched}
                   selectedMovieId={selectedMovieId}
                   setSelectedMovieId={setSelectedMovieId}
-                  movieRating={movieRating}
                 />
               </>
             )}
@@ -131,7 +125,6 @@ function HomePage() {
                 setMovieDetailsData={setMovieDetailsData}
                 watched={watched}
                 setWatched={setWatched}
-                setMovieRating={setMovieRating}
               />
             )}
           </MoviesBox>

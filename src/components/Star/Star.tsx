@@ -5,7 +5,6 @@ type StarProps = {
   rating: number;
   setRating: (rating: number) => void;
   setIsClicked: (value: boolean) => void;
-  setMovieRating: React.Dispatch<React.SetStateAction<number>>;
 };
 
 /**
@@ -13,15 +12,8 @@ type StarProps = {
  * @param starNumber - The number that the star represents
  * @param currentRating - The number in which the clicked on star represents
  * @param setRating - The setter function for changing the rating on input click
- * @param setMovieRating The setter function for the movie rating prop in order to sync with the star components local rating state
  */
-function Star({
-  starNumber,
-  rating,
-  setRating,
-  setIsClicked,
-  setMovieRating,
-}: StarProps) {
+function Star({ starNumber, rating, setRating, setIsClicked }: StarProps) {
   const filledStar = '⭐';
   const emptyStar = '☆';
 
@@ -38,7 +30,6 @@ function Star({
         checked={rating === starNumber}
         onChange={(e) => {
           setRating(Number(e.target.value));
-          setMovieRating(Number(e.target.value));
           setIsClicked(true);
         }}
         name='star-rating'

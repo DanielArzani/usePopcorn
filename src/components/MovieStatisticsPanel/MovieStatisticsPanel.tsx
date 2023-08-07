@@ -9,18 +9,13 @@ import Stat from '../Stat';
 
 type MovieStatisticsPanelProps = {
   watched: MovieDetailsType[];
-  movieRating: number;
 };
 
 /**
  * This component displays a panel that contains the statistics of the movies watched by the user.
  * @param watched The list of watched movies
- * @param movieRating The user rating of the currently selected movie
  */
-function MovieStatisticsPanel({
-  watched,
-  movieRating,
-}: MovieStatisticsPanelProps) {
+function MovieStatisticsPanel({ watched }: MovieStatisticsPanelProps) {
   // Calculate average IMDb rating, user rating, and runtime of watched movies
   // By mapping through the watched movies array and passing the values to the average function
   const avgImdbRating = Math.round(

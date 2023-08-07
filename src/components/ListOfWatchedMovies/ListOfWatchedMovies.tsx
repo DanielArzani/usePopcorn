@@ -18,7 +18,6 @@ type ListOfWatchedMoviesProps = {
   movies: MovieDetailsType[];
   selectedMovieId: string;
   setSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
-  movieRating: number;
 };
 
 /**
@@ -26,13 +25,11 @@ type ListOfWatchedMoviesProps = {
  * @param movies A list of movies which take the MovieDetailType instead of the MovieType because a great deal of more fields are required
  * @param selectedMovieId The movie ID to be used to reset the selectedMovieID back to an empty string
  * @param setSelectedMovieId The setter function for the selectedMovieId. This will allow us to get a movies unique imdbID after click it
- * @param movieRating The user rating of the currently selected movie
  */
 function ListOfWatchedMovies({
   movies,
   selectedMovieId,
   setSelectedMovieId,
-  movieRating,
 }: ListOfWatchedMoviesProps) {
   return (
     <div className='mt-2'>

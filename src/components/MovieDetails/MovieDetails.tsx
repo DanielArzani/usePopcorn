@@ -60,6 +60,19 @@ function MovieDetails({
     })();
   }, [selectedMovieId]);
 
+  // Close the movie details on esc key press event
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Escape') {
+        setSelectedMovieId('');
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   // Change the page title to match the movie
   useEffect(() => {
     document.title = movieDetailsData.Title;

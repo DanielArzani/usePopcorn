@@ -27,7 +27,7 @@ function MovieStats({ statProps }: MovieStatsProps) {
 
       <Stat>
         🌟
-        <span> {userRating} </span>
+        <span> {userRating || 0} </span>
         <span className='sr-only'>User Rating</span>
       </Stat>
 

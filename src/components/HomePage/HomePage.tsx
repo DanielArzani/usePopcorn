@@ -39,7 +39,13 @@ const defaultMovieDetails = {
 function HomePage() {
   const [query, setQuery] = useState<string>(''); // Holds the search query
   const [movies, setMovies] = useState<MovieType[]>([]); // Holds the list of all movies
-  const [watched, setWatched] = useState<MovieDetailsType[]>([]); // Holds the list of watched movies
+  // const [watched, setWatched] = useState<MovieDetailsType[]>([]); // Holds the list of watched movies
+
+  // Load watched movies from local storage when the component mounts
+  const [watched, setWatched] = useState<MovieDetailsType[]>(() => {
+    const savedWatched = localStorage.getItem('watchedMovies');
+    return savedWatched ? JSON.parse(savedWatched) : [];
+  });
 
   const [loading, setLoading] = useState<Loading>('success');
 
@@ -47,6 +53,25 @@ function HomePage() {
 
   const [movieDetailsData, setMovieDetailsData] =
     useState<MovieDetailsType>(defaultMovieDetails);
+
+  // Deletes a movie from the watched movies list
+  const handleDeleteMovie = (e: React.MouseEvent, imdbID: string) => {
+    // This is to prevent the click event from propagating upwards to the list item
+    e.stopPropagation();
+
+    setWatched((prevWatched) =>
+      prevWatched.filter((movie) => movie.imdbID !== imdbID)
+    );
+
+    setSelectedMovieId('');
+  };
+
+  console.log({ selectedMovieId });
+
+  // Save watched movies to local storage whenever the watched state changes
+  useEffect(() => {
+    localStorage.setItem('watchedMovies', JSON.stringify(watched));
+  }, [watched]);
 
   // Fetching the movie data on search query and setting loading states
   useEffect(() => {
@@ -113,6 +138,7 @@ function HomePage() {
                   movies={watched}
                   selectedMovieId={selectedMovieId}
                   setSelectedMovieId={setSelectedMovieId}
+                  onDeleteMovie={handleDeleteMovie}
                 />
               </>
             )}

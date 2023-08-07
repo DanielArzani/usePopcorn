@@ -28,7 +28,7 @@ function UnWatchedMovieListItem({
         />
       </div>
 
-      <div className='flex flex-col justify-center'>
+      <div className='flex flex-col items-start justify-center'>
         <h2 className='mb-2 font-bold'>{Title}</h2>
 
         <div>

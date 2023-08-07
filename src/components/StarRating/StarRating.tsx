@@ -34,7 +34,7 @@ function StarRating({
   setMovieRating,
   setSelectedMovieId,
 }: StarRatingProps) {
-  const [rating, setRating] = useState(movieDetailsData.userRating || 1);
+  const [rating, setRating] = useState(movieDetailsData.userRating || 0);
   const [isClicked, setIsClicked] = useState(false);
 
   const convertedNumOfStars = Number(numOfStars + 1);

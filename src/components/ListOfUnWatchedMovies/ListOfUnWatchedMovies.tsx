@@ -43,7 +43,9 @@ function ListOfUnWatchedMovies({
               }}
               className='cursor-pointer border-b border-[#343a40] py-4 hover:bg-[#343a40]'
             >
-              <UnWatchedMovieListItem ListItemProps={listItemProps} />
+              <button>
+                <UnWatchedMovieListItem ListItemProps={listItemProps} />
+              </button>
             </li>
           );
         })}

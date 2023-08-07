@@ -58,7 +58,9 @@ function ListOfWatchedMovies({
                 }
               }}
             >
-              <WatchedMovieListItem ListItemProps={listItemProps} />
+              <button>
+                <WatchedMovieListItem ListItemProps={listItemProps} />
+              </button>
             </li>
           );
         })}

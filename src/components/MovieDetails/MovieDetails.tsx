@@ -60,6 +60,15 @@ function MovieDetails({
     })();
   }, [selectedMovieId]);
 
+  // Change the page title to match the movie
+  useEffect(() => {
+    document.title = movieDetailsData.Title;
+
+    return () => {
+      document.title = 'usePopcorn';
+    };
+  }, [movieDetailsData]);
+
   return (
     <>
       {isLoading === 'nothing' && null}

@@ -66,8 +66,6 @@ function HomePage() {
     setSelectedMovieId('');
   };
 
-  console.log({ selectedMovieId });
-
   // Save watched movies to local storage whenever the watched state changes
   useEffect(() => {
     localStorage.setItem('watchedMovies', JSON.stringify(watched));

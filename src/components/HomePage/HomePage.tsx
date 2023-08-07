@@ -73,6 +73,9 @@ function HomePage() {
 
   // Fetching the movie data on search query and setting loading states
   useEffect(() => {
+    // Create an abort controller for cleaning up the excess network requests (in order to prevent a race condition)
+    const controller = new AbortController();
+
     if (query === '') setLoading('nothing');
 
     // No movies will show up with only 2 letters so no point is querying for them at that point
@@ -84,7 +87,7 @@ function HomePage() {
         // GET movies from OMBD API
         const url = `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`;
 
-        const moviesResultsPromise = getMovies(url);
+        const moviesResultsPromise = getMovies(url, controller);
 
         (async () => {
           const data = await moviesResultsPromise;
@@ -97,6 +100,10 @@ function HomePage() {
         })();
       }
     }
+
+    return () => {
+      controller.abort();
+    };
   }, [query]);
 
   return (

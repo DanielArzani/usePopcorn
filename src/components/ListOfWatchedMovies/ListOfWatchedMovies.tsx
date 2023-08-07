@@ -35,22 +35,6 @@ function ListOfWatchedMovies({
   movieRating,
 }: ListOfWatchedMoviesProps) {
   return (
-    //   <ul className='ml-4 flex flex-col gap-4'>
-    //   {movies.map((movie) => {
-    //     const listItemProps: ListItemProps = {
-    //       imdbID: movie.imdbID,
-    //       Title: movie.Title,
-    //       Poster: movie.Poster,
-    //       statProps: {
-    //         runTime: Number(movie.Runtime),
-    //         imdbRating: Number(movie.imdbRating),
-    //         userRating: movie.userRating || 0, // Use the userRating from the movie object
-    //       },
-    //     };
-
-    //     // ...
-    //   })}
-    // </ul>
     <div className='mt-2'>
       <ul className='ml-4 flex flex-col gap-4'>
         {movies.map((movie) => {
@@ -59,7 +43,7 @@ function ListOfWatchedMovies({
             Title: movie.Title,
             Poster: movie.Poster,
             statProps: {
-              runTime: Number(movie.Runtime),
+              runTime: parseInt(movie.Runtime, 10),
               imdbRating: Number(movie.imdbRating),
               userRating: movie.userRating || 0, // Use the userRating from the movie object
             },

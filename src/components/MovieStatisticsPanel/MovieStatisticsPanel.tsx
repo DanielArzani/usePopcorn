@@ -23,18 +23,19 @@ function MovieStatisticsPanel({
 }: MovieStatisticsPanelProps) {
   // Calculate average IMDb rating, user rating, and runtime of watched movies
   // By mapping through the watched movies array and passing the values to the average function
-  const avgImdbRating = average(
-    watched.map((movie) => parseFloat(movie.imdbRating))
-  );
-  // const avgUserRating = average(
-  //   watched.map((movie) => parseFloat(movieRating.toString()))
-  // );
-
-  const avgUserRating = average(
-    watched.map((movie) => parseFloat(movie.userRating?.toString() || '0'))
+  const avgImdbRating = Math.round(
+    average(watched.map((movie) => parseFloat(movie.imdbRating)))
   );
 
-  const avgRuntime = average(watched.map((movie) => parseFloat(movie.Runtime)));
+  const avgUserRating = Math.round(
+    average(
+      watched.map((movie) => parseFloat(movie.userRating?.toString() || '0'))
+    )
+  );
+
+  const avgRuntime = Math.round(
+    average(watched.map((movie) => parseInt(movie.Runtime, 10)))
+  );
 
   const numOfWatchedMovies = watched.length;
 

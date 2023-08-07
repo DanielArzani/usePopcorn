@@ -26,9 +26,14 @@ function MovieStatisticsPanel({
   const avgImdbRating = average(
     watched.map((movie) => parseFloat(movie.imdbRating))
   );
+  // const avgUserRating = average(
+  //   watched.map((movie) => parseFloat(movieRating.toString()))
+  // );
+
   const avgUserRating = average(
-    watched.map((movie) => parseFloat(movieRating.toString()))
+    watched.map((movie) => parseFloat(movie.userRating?.toString() || '0'))
   );
+
   const avgRuntime = average(watched.map((movie) => parseFloat(movie.Runtime)));
 
   const numOfWatchedMovies = watched.length;

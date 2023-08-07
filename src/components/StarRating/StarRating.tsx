@@ -11,6 +11,7 @@ type StarRatingProps = {
   setWatched: React.Dispatch<React.SetStateAction<MovieDetailsType[]>>;
   movieDetailsData: MovieDetailsType;
   setMovieRating: React.Dispatch<React.SetStateAction<number>>;
+  setMovieDetailsData: React.Dispatch<React.SetStateAction<MovieDetailsType>>;
 };
 
 /**
@@ -19,6 +20,7 @@ type StarRatingProps = {
  * @param watched The list of watched movies, it's here only to be passed down as a prop
  * @param setWatched The setter function for the list of watched movies, it's here only to be passed down as a prop
  * @param movieDetailsData The movie which should be added to the watched list on button click
+ * @param setMovieDetailsData The setter function for the movieDetailsData. Here in order to update the data to allow a userRating field
  * @param setMovieRating The setter function for the rating prop, it is here to be passed into the star component in order to sync with its local rating state
  */
 function StarRating({
@@ -26,17 +28,21 @@ function StarRating({
   watched,
   setWatched,
   movieDetailsData,
+  setMovieDetailsData,
   setMovieRating,
 }: StarRatingProps) {
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(movieDetailsData.userRating || 1);
   const [isClicked, setIsClicked] = useState(false);
 
   const convertedNumOfStars = Number(numOfStars + 1);
 
   const handleClick = () => {
+    const updatedMovieDetails = { ...movieDetailsData, userRating: rating };
+    setMovieDetailsData(updatedMovieDetails);
+
     // Check if the movie is already in the watched array in order to disallow duplicates of the same movie being added to the list of watched movies
     if (!watched.some((movie) => movie.imdbID === movieDetailsData.imdbID)) {
-      const newArray = [...watched, movieDetailsData];
+      const newArray = [...watched, updatedMovieDetails];
       setWatched(newArray);
     }
   };

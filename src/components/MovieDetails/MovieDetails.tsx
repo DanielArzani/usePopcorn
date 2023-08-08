@@ -11,6 +11,7 @@ import { Loading } from '../../types/LoadingTypes';
 
 import { KEY } from '../../apiKey/key';
 import { FailureState, LoadingState } from '../LoadingStates';
+import useKey from '../../hooks/useKey';
 
 type MovieDetailsProps = {
   selectedMovieId: string;
@@ -61,17 +62,7 @@ function MovieDetails({
   }, [selectedMovieId]);
 
   // Close the movie details on esc key press event
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Escape') {
-        onCloseMovie;
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  useKey('Escape', onCloseMovie);
 
   // Change the page title to match the movie
   useEffect(() => {

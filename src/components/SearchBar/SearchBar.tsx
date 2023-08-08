@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import useKey from '../../hooks/useKey';
 
 type SearchBarProps = {
   query: string;
@@ -18,21 +19,17 @@ function SearchBar({ query, setQuery }: SearchBarProps) {
   useEffect(() => {
     // causes the search bar to be focused on page load
     inputEl.current?.focus();
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // If the search bar is currently focused, then don't execute the rest of the code
-      if (document.activeElement === inputEl.current) return;
-
-      // focus the search bar on esc press and clear the current query
-      if (e.code === 'Escape') {
-        inputEl.current?.focus();
-        setQuery('');
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  function callBack() {
+    // If the search bar is currently focused, then don't execute the rest of the code
+    if (document.activeElement === inputEl.current) return;
+    inputEl.current?.focus();
+    // reset the query
+    setQuery('');
+  }
+
+  useKey('Escape', callBack);
 
   return (
     <div className='w-[300px]'>

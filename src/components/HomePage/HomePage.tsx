@@ -63,9 +63,14 @@ function HomePage() {
     setWatched((prevWatched) =>
       prevWatched.filter((movie) => movie.imdbID !== imdbID)
     );
-
-    setSelectedMovieId('');
   };
+
+  /**
+   * Closes the MovieDetails component
+   */
+  function onCloseMovie() {
+    setSelectedMovieId('');
+  }
 
   return (
     <Stack space='2'>
@@ -88,6 +93,7 @@ function HomePage() {
                 <ListOfUnWatchedMovies
                   movies={movies}
                   selectedMovieId={selectedMovieId}
+                  onCloseMovie={onCloseMovie}
                   setSelectedMovieId={setSelectedMovieId}
                 />
               </SuccessState>
@@ -103,6 +109,7 @@ function HomePage() {
                 <ListOfWatchedMovies
                   movies={watched}
                   selectedMovieId={selectedMovieId}
+                  onCloseMovie={onCloseMovie}
                   setSelectedMovieId={setSelectedMovieId}
                   onDeleteMovie={handleDeleteMovie}
                 />
@@ -112,7 +119,7 @@ function HomePage() {
             {selectedMovieId !== '' && (
               <MovieDetails
                 selectedMovieId={selectedMovieId}
-                setSelectedMovieId={setSelectedMovieId}
+                onCloseMovie={onCloseMovie}
                 movieDetailsData={movieDetailsData}
                 setMovieDetailsData={setMovieDetailsData}
                 watched={watched}

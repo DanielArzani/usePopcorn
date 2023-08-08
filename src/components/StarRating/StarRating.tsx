@@ -11,7 +11,7 @@ type StarRatingProps = {
   setWatched: React.Dispatch<React.SetStateAction<MovieDetailsType[]>>;
   movieDetailsData: MovieDetailsType;
   setMovieDetailsData: React.Dispatch<React.SetStateAction<MovieDetailsType>>;
-  setSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
+  onCloseMovie(): void;
 };
 
 /**
@@ -21,7 +21,7 @@ type StarRatingProps = {
  * @param setWatched The setter function for the list of watched movies, it's here only to be passed down as a prop
  * @param movieDetailsData The movie which should be added to the watched list on button click
  * @param setMovieDetailsData The setter function for the movieDetailsData. Here in order to update the data to allow a userRating field
- * @param setSelectedMovieId The setter function for the selectedMovieId, here in order to reset the selectedMovieId on button click in order to unmount the movie details
+ * @param onCloseMovie For resetting the selectedMovieId on button click in order to unmount the movie details
  */
 function StarRating({
   numOfStars,
@@ -29,7 +29,7 @@ function StarRating({
   setWatched,
   movieDetailsData,
   setMovieDetailsData,
-  setSelectedMovieId,
+  onCloseMovie,
 }: StarRatingProps) {
   const [rating, setRating] = useState(movieDetailsData.userRating || 0);
   const [isClicked, setIsClicked] = useState(false);
@@ -64,7 +64,8 @@ function StarRating({
       const newArray = [...watched, updatedMovieDetails];
       setWatched(newArray);
     }
-    setSelectedMovieId('');
+
+    onCloseMovie();
   };
 
   // useEffect for the countRef

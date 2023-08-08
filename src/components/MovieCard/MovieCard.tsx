@@ -7,16 +7,16 @@ import { MovieDetailsType } from '../../types/MovieDetailsType';
 
 type MovieCardProps = {
   cardProps: MovieDetailsType;
-  onSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
+  onCloseMovie(): void;
 };
 
 /**
  * Extra information about a chosen movie along with a larger sized poster and a back button in order to stop showing the extra details
  * @param cardProps The information of the movie to be shown
- * @param onSelectedMovieId The setter function for the selectedMovieId, used to reset it back to an empty string in order to stop showing the extra details
+ * @param onCloseMovie For closing the movie details component
 
  */
-function MovieCard({ cardProps, onSelectedMovieId }: MovieCardProps) {
+function MovieCard({ cardProps, onCloseMovie }: MovieCardProps) {
   const {
     imdbRating,
     Title,
@@ -47,7 +47,7 @@ function MovieCard({ cardProps, onSelectedMovieId }: MovieCardProps) {
         sidebarContent={
           <div className='relative w-40'>
             <button
-              onClick={() => onSelectedMovieId('')}
+              onClick={() => onCloseMovie}
               className='absolute top-1 left-1 flex items-center justify-center rounded-full bg-white px-[0.4rem] py-0 text-black'
               style={{ fontSize: '24px' }}
             >

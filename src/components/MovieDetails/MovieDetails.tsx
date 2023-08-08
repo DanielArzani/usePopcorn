@@ -14,7 +14,7 @@ import { FailureState, LoadingState } from '../LoadingStates';
 
 type MovieDetailsProps = {
   selectedMovieId: string;
-  setSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
+  onCloseMovie(): void;
   movieDetailsData: MovieDetailsType;
   setMovieDetailsData: React.Dispatch<React.SetStateAction<MovieDetailsType>>;
   watched: MovieDetailsType[];
@@ -26,13 +26,13 @@ type MovieDetailsProps = {
  * @param movieDetailsData The data of the movie, fetched using the selectedMovieId
  * @param setMovieDetailsData The setter function for the movieDetailsData
  * @param selectedMovieId The specific movie in which to get the details of
- * @param onSelectedMovieId The setter function for storing the id of the selected movie
+ * @param onCloseMovie For closing the movie details component
  * @param watched The list of watched movies, it's here only to be passed down as a prop
  * @param setWatched The setter function for the list of watched movies, it's here only to be passed down as a prop
  */
 function MovieDetails({
   selectedMovieId,
-  setSelectedMovieId,
+  onCloseMovie,
   movieDetailsData,
   setMovieDetailsData,
   watched,
@@ -64,7 +64,7 @@ function MovieDetails({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'Escape') {
-        setSelectedMovieId('');
+        onCloseMovie;
       }
     };
 
@@ -89,10 +89,7 @@ function MovieDetails({
       {isLoading === 'failure' && <FailureState />}
       {isLoading === 'success' && (
         <Stack space='3rem'>
-          <MovieCard
-            cardProps={movieDetailsData}
-            onSelectedMovieId={setSelectedMovieId}
-          />
+          <MovieCard cardProps={movieDetailsData} onCloseMovie={onCloseMovie} />
           <Center maxWidth='max-w-350'>
             <Stack space='3rem'>
               <StarRating
@@ -101,7 +98,7 @@ function MovieDetails({
                 setWatched={setWatched}
                 movieDetailsData={movieDetailsData}
                 setMovieDetailsData={setMovieDetailsData}
-                setSelectedMovieId={setSelectedMovieId}
+                onCloseMovie={onCloseMovie}
               />
 
               <MovieDescription Plot={movieDetailsData.Plot} />

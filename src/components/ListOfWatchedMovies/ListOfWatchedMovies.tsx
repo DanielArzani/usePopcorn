@@ -19,6 +19,7 @@ type ListOfWatchedMoviesProps = {
   selectedMovieId: string;
   setSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
   onDeleteMovie: (e: React.MouseEvent, imdbID: string) => void;
+  onCloseMovie(): void;
 };
 
 /**
@@ -27,12 +28,14 @@ type ListOfWatchedMoviesProps = {
  * @param selectedMovieId The movie ID to be used to reset the selectedMovieID back to an empty string
  * @param setSelectedMovieId The setter function for the selectedMovieId. This will allow us to get a movies unique imdbID after click it
  * @param onDeleteMovie The callback to delete a movie from the watched movies list. It is here to be passed down as a prop
+ * @param onCloseMovie The event handler that will close the MovieDetails Component
  */
 function ListOfWatchedMovies({
   movies,
   selectedMovieId,
   setSelectedMovieId,
   onDeleteMovie,
+  onCloseMovie,
 }: ListOfWatchedMoviesProps) {
   return (
     <div className='mt-2'>
@@ -55,7 +58,7 @@ function ListOfWatchedMovies({
               key={movie.imdbID}
               onClick={() => {
                 if (selectedMovieId === movie.imdbID) {
-                  setSelectedMovieId('');
+                  onCloseMovie();
                 } else {
                   setSelectedMovieId(movie.imdbID);
                 }

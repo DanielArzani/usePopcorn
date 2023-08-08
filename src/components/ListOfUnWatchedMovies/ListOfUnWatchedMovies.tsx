@@ -7,6 +7,7 @@ type ListOfUnWatchedMoviesProps = {
   movies: MovieType[];
   selectedMovieId: string;
   setSelectedMovieId: React.Dispatch<React.SetStateAction<string>>;
+  onCloseMovie(): void;
 };
 
 /**
@@ -14,11 +15,13 @@ type ListOfUnWatchedMoviesProps = {
  * @param movies The state which should hold the list of movies
  * @param selectedMovieId The movie ID to be used to reset the selectedMovieID back to an empty string
  * @param setSelectedMovieId The setter function for the selectedMovieId. This will allow us to get a movies unique imdbID after click it
+ * @param onCloseMovie The event handler that will close the MovieDetails Component
  */
 function ListOfUnWatchedMovies({
   movies,
   selectedMovieId,
   setSelectedMovieId,
+  onCloseMovie,
 }: ListOfUnWatchedMoviesProps) {
   return (
     <div>
@@ -36,7 +39,7 @@ function ListOfUnWatchedMovies({
               key={movie.imdbID}
               onClick={() => {
                 if (selectedMovieId === movie.imdbID) {
-                  setSelectedMovieId('');
+                  onCloseMovie();
                 } else {
                   setSelectedMovieId(movie.imdbID);
                 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { range } from '../../utils/range';
 import Star from '../Star/Star';
 import Button from '../Button';
@@ -36,11 +36,18 @@ function StarRating({
 
   const convertedNumOfStars = Number(numOfStars + 1);
 
+  // for storing internally the number of times a user has clicked on one of the ratings
+  const countRef = useRef<number>(0);
+
   /**
    * Callback function will add a movie to the list of watched movies, will check to make sure that no duplicate movies can be added and will allow for replacing the old rating with a new one as well as unmounting the movie details after wards.
    */
   const handleClick = () => {
-    const updatedMovieDetails = { ...movieDetailsData, userRating: rating };
+    const updatedMovieDetails = {
+      ...movieDetailsData,
+      userRating: rating,
+      countRatingDecisions: countRef.current,
+    };
     setMovieDetailsData(updatedMovieDetails);
 
     // Check if the movie is already in the watched array
@@ -59,6 +66,11 @@ function StarRating({
     }
     setSelectedMovieId('');
   };
+
+  // useEffect for the countRef
+  useEffect(() => {
+    if (rating) countRef.current = countRef.current + 1;
+  }, [rating]);
 
   return (
     <div className='flex flex-col gap-4 rounded-xl bg-[#343a40] p-4'>

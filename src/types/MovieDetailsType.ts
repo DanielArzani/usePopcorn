@@ -9,4 +9,5 @@ export type MovieDetailsType = {
   imdbID: string;
   imdbRating: string;
   userRating?: number;
+  countRatingDecisions?: number;
 };

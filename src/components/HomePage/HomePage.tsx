@@ -21,6 +21,9 @@ import { KEY } from '../../apiKey/key';
 import ListOfUnWatchedMovies from '../ListOfUnWatchedMovies';
 import ListOfWatchedMovies from '../ListOfWatchedMovies';
 
+import useMovies from '../../hooks/useMovies';
+import useLocalStorageState from '../../hooks/useLocalStorageState';
+
 const defaultMovieDetails = {
   Genre: '',
   Plot: '',
@@ -38,16 +41,14 @@ const defaultMovieDetails = {
  */
 function HomePage() {
   const [query, setQuery] = useState<string>(''); // Holds the search query
-  const [movies, setMovies] = useState<MovieType[]>([]); // Holds the list of all movies
-  // const [watched, setWatched] = useState<MovieDetailsType[]>([]); // Holds the list of watched movies
 
-  // Load watched movies from local storage when the component mounts
-  const [watched, setWatched] = useState<MovieDetailsType[]>(() => {
-    const savedWatched = localStorage.getItem('watchedMovies');
-    return savedWatched ? JSON.parse(savedWatched) : [];
-  });
+  // Fetching the movie data on search query and setting loading states
+  const [movies, loading] = useMovies(query, KEY);
 
-  const [loading, setLoading] = useState<Loading>('success');
+  const [watched, setWatched] = useLocalStorageState<MovieDetailsType[]>(
+    [],
+    'watchedMovies'
+  );
 
   const [selectedMovieId, setSelectedMovieId] = useState('');
 
@@ -65,46 +66,6 @@ function HomePage() {
 
     setSelectedMovieId('');
   };
-
-  // Save watched movies to local storage whenever the watched state changes
-  useEffect(() => {
-    localStorage.setItem('watchedMovies', JSON.stringify(watched));
-  }, [watched]);
-
-  // Fetching the movie data on search query and setting loading states
-  useEffect(() => {
-    // Create an abort controller for cleaning up the excess network requests (in order to prevent a race condition)
-    const controller = new AbortController();
-
-    if (query === '') setLoading('nothing');
-
-    // No movies will show up with only 2 letters so no point is querying for them at that point
-    if (query.length >= 3) {
-      if (query !== '') {
-        // Only perform the API call when query is not an empty string
-        setLoading('loading'); // Set loading to true at the start of an API call
-
-        // GET movies from OMBD API
-        const url = `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`;
-
-        const moviesResultsPromise = getMovies(url, controller);
-
-        (async () => {
-          const data = await moviesResultsPromise;
-          if (data !== undefined) {
-            setLoading('success');
-            setMovies(data.Search);
-          } else {
-            setLoading('failure');
-          }
-        })();
-      }
-    }
-
-    return () => {
-      controller.abort();
-    };
-  }, [query]);
 
   return (
     <Stack space='2'>

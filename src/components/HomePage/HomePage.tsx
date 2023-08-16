@@ -44,6 +44,7 @@ function HomePage() {
 
   // Fetching the movie data on search query and setting loading states
   const [movies, loading] = useMovies(query, KEY);
+  console.log(movies);
 
   const [watched, setWatched] = useLocalStorageState<MovieDetailsType[]>(
     [],

@@ -31,7 +31,7 @@ export default function useMovies(
         setLoading('loading'); // Set loading to true at the start of an API call
 
         // GET movies from OMBD API
-        const url = `http://www.omdbapi.com/?apikey=${key}&s=${query}`;
+        const url = `https://www.omdbapi.com/?apikey=${key}&s=${query}`;
 
         const moviesResultsPromise = getMovies(url, controller);
 

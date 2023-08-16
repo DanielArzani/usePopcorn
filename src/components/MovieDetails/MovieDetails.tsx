@@ -43,7 +43,7 @@ function MovieDetails({
 
   useEffect(() => {
     // GET movie from OMBD API
-    const url = `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedMovieId}`;
+    const url = `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedMovieId}`;
 
     (async () => {
       setIsLoading('loading');
